@@ -6,27 +6,28 @@
 
 <p align="center">Catch it before it's too late.</p>
 
-Paste up to 1000 words, in English or Spanish. The parrot underlines every AI tell it finds, names the rule that caught it, and gives the text a slop score from 0 to 100.
-
-## What it does
-
-- Underlines 24 kinds of AI tells and explains each one in place
-- Works in English and Spanish, with auto-detection
-- Scores with judgment: one stray tell in a long text counts for nothing
-- Keeps nothing: no accounts, no history, no stored text
-
 ## How it works
 
 ```mermaid
 flowchart LR
-    A[pasted text] --> B[20 regex and word-list rules]
-    A --> C[4 LLM-judged rules]
+    A[pasted text] --> B[rule catalog]
+    A --> C[LLM judge]
     B --> D[merge and score]
     C --> D
-    D --> E[underlined tells, explanations, slop score]
+    D --> E[every tell underlined and explained]
 ```
 
-The rules are the product, and all of them are readable. The word lists come from published studies of words that language models overuse (Kobak et al. 2025, Liang et al. 2024, Juzek and Ward 2025) and from Wikipedia's catalog of AI writing signs. See the [word lists](src/lib/rules/), the [regex rules](src/lib/scanners/deterministic.ts), the [LLM prompts](src/lib/scanners/llm.ts) and the [scoring](src/lib/scanners/merge.ts).
+## Built on the research
+
+The rule catalog condenses what is known about machine writing, in English and Spanish:
+
+- [Kobak et al., Science Advances 2025](https://arxiv.org/abs/2406.07016) measured excess vocabulary across 15 million PubMed abstracts and isolated the words that language models overuse. The heaviest hitters are in the word lists.
+- [Liang et al., ICML 2024](https://arxiv.org/abs/2403.07183) traced AI-modified text in peer review at population scale, with per-word multipliers up to 35x. Those words are in the lists too.
+- [Juzek and Ward, COLING 2025](https://aclanthology.org/2025.coling-main.426/) found why models lean on certain words: the preference-tuning data rewards them.
+- [Wikipedia's catalog of AI writing signs](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), kept by the editors who clean it up every day. The structural tells (label headings, formula closers, bolted-on comment clauses) come from here.
+- Public write-ups from commercial detectors (GPTZero, Pangram, Originality) for the statistical signals, like sentence-rhythm variance.
+
+All of it is readable code: the [word lists](src/lib/rules/), the [pattern rules](src/lib/scanners/deterministic.ts), the [LLM prompts](src/lib/scanners/llm.ts) and the [scoring](src/lib/scanners/merge.ts).
 
 ## The score
 
@@ -36,12 +37,12 @@ Repeating one tell compounds. Mixing different tells weighs more than repeating 
 
 ```bash
 npm install
-cp .env.example .env   # GOOGLE_GENAI_API_KEY turns on the LLM rules (optional)
+cp .env.example .env   # GOOGLE_GENAI_API_KEY turns on the LLM judge (optional)
 npm run dev            # http://localhost:5173
 npm test               # one of these tests scans this README for slop
 ```
 
-The regex rules always run, with or without a key. The endpoint rate-limits by IP and rejects junk before spending tokens ([src/lib/server/](src/lib/server/)).
+The rule catalog always runs, with or without a key. The endpoint rate-limits by IP and rejects junk before spending tokens ([src/lib/server/](src/lib/server/)).
 
 ## Stack
 
