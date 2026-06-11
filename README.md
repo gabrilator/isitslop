@@ -32,10 +32,6 @@ What each one contributed to the catalog:
 
 All of it is readable code: the [word lists](src/lib/rules/), the [pattern rules](src/lib/scanners/deterministic.ts), the [LLM prompts](src/lib/scanners/llm.ts) and the [scoring](src/lib/scanners/merge.ts).
 
-## The score
-
-Repeating one tell compounds. Mixing different tells weighs more than repeating one. Tells that cluster in a single passage count more than the same tells spread across the page. A lone soft tell in a long text scores zero, while pasted chat artifacts guarantee at least 25. A rhythm meter also shows how much your sentence lengths vary, since model text tends to keep one beat. Register signals (nominalizations, participial clauses) never move the score: they show up as writing tips, with your measured multiple of the human rate.
-
 ## Run it
 
 ```bash
