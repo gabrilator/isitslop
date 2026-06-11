@@ -78,7 +78,13 @@ const YELLOW_BASE = 3;
 const ESCALATION = 1.5;
 const LENGTH_BASELINE = 150; // a paragraph
 
-export const WRITING_TIP_RULES = new Set(['adverb', 'long-sentence', 'passive']);
+export const WRITING_TIP_RULES = new Set([
+	'adverb',
+	'long-sentence',
+	'passive',
+	'nominalization',
+	'participial-clause'
+]);
 
 export function isWritingTip(ruleId: string): boolean {
 	return WRITING_TIP_RULES.has(ruleId);

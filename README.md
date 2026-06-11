@@ -24,6 +24,7 @@ The rule catalog condenses what is known about machine writing, in English and S
 - [Kobak et al., Science Advances 2025](https://arxiv.org/abs/2406.07016) measured excess vocabulary across 15 million PubMed abstracts and isolated the words that language models overuse. The heaviest hitters are in the word lists.
 - [Liang et al., ICML 2024](https://arxiv.org/abs/2403.07183) traced AI-modified text in peer review at population scale, with per-word multipliers up to 35x. Those words are in the lists too.
 - [Juzek and Ward, COLING 2025](https://aclanthology.org/2025.coling-main.426/) found why models lean on certain words: the preference-tuning data rewards them.
+- [Reinhart et al., PNAS 2025](https://arxiv.org/abs/2410.16107) measured the register itself: models stack nominalizations at twice the human rate and participial clauses at up to five times. Texts of 400 words or more get checked for both.
 - [Wikipedia's catalog of AI writing signs](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), kept by the editors who clean it up every day. The structural tells (label headings, formula closers, bolted-on comment clauses) come from here.
 - Public write-ups from commercial detectors (GPTZero, Pangram, Originality) for the statistical signals, like sentence-rhythm variance.
 

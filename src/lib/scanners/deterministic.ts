@@ -19,6 +19,7 @@ import { AI_DISCLAIMERS_EN, AI_DISCLAIMERS_ES } from '$lib/rules/aiDisclaimers';
 import { HEDGES_EN, HEDGES_ES } from '$lib/rules/hedges';
 import { CONCLUSION_CLOSERS_EN, CONCLUSION_CLOSERS_ES } from '$lib/rules/conclusionClosers';
 import { PARTICIPIAL_GERUNDS_EN, PARTICIPIAL_GERUNDS_ES } from '$lib/rules/participialComments';
+import { reinhartFlags } from '$lib/rules/reinhart';
 
 const RX_ESCAPE = /[.*+?^${}()|[\]\\]/g;
 function escapeRx(s: string): string {
@@ -666,7 +667,8 @@ export function scanDeterministic(text: string, language: Language): Determinist
 		...placeholderRemnants(text, language),
 		...hedges(text, language),
 		...participialComments(text, language),
-		...conclusionClosers(text, language)
+		...conclusionClosers(text, language),
+		...reinhartFlags(text, language)
 	];
 
 	const adverbPct = adverbResult.totalWords
