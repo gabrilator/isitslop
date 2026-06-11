@@ -1,0 +1,24 @@
+// Formulaic summary closers. Only flagged near the end of the text,
+// at a sentence start — that's where the AI recap lives.
+
+export const CONCLUSION_CLOSERS_EN: string[] = [
+	'in conclusion',
+	'in summary',
+	'to sum up',
+	'all in all',
+	'at the end of the day',
+	'in essence',
+	'overall,',
+	'ultimately,'
+];
+
+export const CONCLUSION_CLOSERS_ES: string[] = [
+	'en conclusión',
+	'en resumen',
+	'en definitiva',
+	'en síntesis',
+	'para concluir',
+	'en última instancia',
+	'como se puede ver',
+	'en suma'
+];
