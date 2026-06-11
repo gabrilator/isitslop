@@ -6,6 +6,8 @@
 
 <p align="center">Catch it before it's too late.</p>
 
+The slop research of the world, scoured and turned into one running rule catalog: the excess-vocabulary studies (Kobak, Liang, Juzek and Ward), the register study (Reinhart), Wikipedia's editor-kept catalog of AI signs, the public write-ups of GPTZero, Pangram and Originality, and more as it lands. Paste a text, in English or Spanish, and the parrot runs all of it.
+
 ## How it works
 
 ```mermaid
@@ -17,14 +19,14 @@ flowchart LR
     D --> E[every tell underlined and explained]
 ```
 
-## Built on the research
+## The sources
 
-The rule catalog condenses what is known about machine writing, in English and Spanish:
+What each one contributed to the catalog:
 
 - [Kobak et al., Science Advances 2025](https://arxiv.org/abs/2406.07016) measured excess vocabulary across 15 million PubMed abstracts and isolated the words that language models overuse. The heaviest hitters are in the word lists.
 - [Liang et al., ICML 2024](https://arxiv.org/abs/2403.07183) traced AI-modified text in peer review at population scale, with per-word multipliers up to 35x. Those words are in the lists too.
 - [Juzek and Ward, COLING 2025](https://aclanthology.org/2025.coling-main.426/) found why models lean on certain words: the preference-tuning data rewards them.
-- [Reinhart et al., PNAS 2025](https://arxiv.org/abs/2410.16107) measured the register itself: models stack nominalizations at twice the human rate and participial clauses at up to five times. Texts of 400 words or more get checked for both.
+- [Reinhart et al., PNAS 2025](https://arxiv.org/abs/2410.16107) measured the register itself: models stack nominalizations at twice the human rate and participial clauses at up to five times. Texts of 400 words or more get checked for both, against human baselines: under twice the human rate, nothing is said, and past it the flag tells you your multiple.
 - [Wikipedia's catalog of AI writing signs](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), kept by the editors who clean it up every day. The structural tells (label headings, formula closers, bolted-on comment clauses) come from here.
 - Public write-ups from commercial detectors (GPTZero, Pangram, Originality) for the statistical signals, like sentence-rhythm variance.
 
@@ -32,7 +34,7 @@ All of it is readable code: the [word lists](src/lib/rules/), the [pattern rules
 
 ## The score
 
-Repeating one tell compounds. Mixing different tells weighs more than repeating one. Tells that cluster in a single passage count more than the same tells spread across the page. A lone soft tell in a long text scores zero, while pasted chat artifacts guarantee at least 25. A rhythm meter also shows how much your sentence lengths vary, since model text tends to keep one beat.
+Repeating one tell compounds. Mixing different tells weighs more than repeating one. Tells that cluster in a single passage count more than the same tells spread across the page. A lone soft tell in a long text scores zero, while pasted chat artifacts guarantee at least 25. A rhythm meter also shows how much your sentence lengths vary, since model text tends to keep one beat. Register signals (nominalizations, participial clauses) never move the score: they show up as writing tips, with your measured multiple of the human rate.
 
 ## Run it
 

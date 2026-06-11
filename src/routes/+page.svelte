@@ -47,6 +47,10 @@
 			result = (await res.json()) as ScanResult;
 			editing = false;
 			mobilePanelOpen = true;
+			(window as { umami?: { track: (event: string, data?: object) => void } }).umami?.track(
+				'analyze',
+				{ language: result.language, score: result.summary.slopScore }
+			);
 		} catch (e) {
 			error = (e as Error).message;
 		} finally {

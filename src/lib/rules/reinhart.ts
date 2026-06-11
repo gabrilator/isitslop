@@ -8,9 +8,13 @@ import type { Flag, Language } from '$lib/types';
 
 export const REINHART_MIN_WORDS = 400;
 
-// per-100-words density thresholds before anything is flagged
-const NOMINALIZATION_PER_100: Record<Language, number> = { en: 5, es: 6 };
-const PARTICIPIAL_PER_100 = 1.2;
+// Human baselines (per 100 words), estimated from the paper's corpora and
+// pending calibration against AuTexTification. The gate is relative, never
+// absolute: the finding is "models do this MORE than people", so nothing
+// is flagged below FLAG_AT_MULTIPLE times the human rate.
+const HUMAN_NOMINALIZATION_PER_100: Record<Language, number> = { en: 2.7, es: 3.2 };
+const HUMAN_PARTICIPIAL_PER_100 = 0.7;
+const FLAG_AT_MULTIPLE = 2;
 const PARTICIPIAL_MIN_HITS = 5;
 
 const NOMINALIZATION_EN = /\b[A-Za-z]{3,}(?:tions?|sions?|ments?|ity|ities|ness|nesses)\b/g;
@@ -82,11 +86,13 @@ export function reinhartFlags(text: string, language: Language): Flag[] {
 	const nomRe = language === 'es' ? NOMINALIZATION_ES : NOMINALIZATION_EN;
 	const nomFp = language === 'es' ? NOMINALIZATION_FP_ES : NOMINALIZATION_FP_EN;
 	const noms = collect(text, nomRe, nomFp);
-	if ((noms.length / words) * 100 >= NOMINALIZATION_PER_100[language]) {
+	const nomMultiple = (noms.length / words) * 100 / HUMAN_NOMINALIZATION_PER_100[language];
+	if (nomMultiple >= FLAG_AT_MULTIPLE) {
+		const m = nomMultiple.toFixed(1);
 		const explanation =
 			language === 'es'
-				? 'Registro nominalizado: los modelos duplican esta tasa (Reinhart 2025).'
-				: 'Noun-stacked register: models nominalize about 2x more (Reinhart 2025).';
+				? `Nominalizaciones a ${m}x la tasa humana (Reinhart 2025).`
+				: `Nominalizations at ${m}x the human rate (Reinhart 2025).`;
 		const suggestion =
 			language === 'es'
 				? 'Cambiá algunos sustantivos en -ción por verbos.'
@@ -111,14 +117,13 @@ export function reinhartFlags(text: string, language: Language): Flag[] {
 	const participials = [...collect(text, commaRe, gerundFp), ...collect(text, openerRe, gerundFp)]
 		.filter((h) => !seen.has(h.start) && seen.add(h.start))
 		.sort((a, b) => a.start - b.start);
-	if (
-		participials.length >= PARTICIPIAL_MIN_HITS &&
-		(participials.length / words) * 100 >= PARTICIPIAL_PER_100
-	) {
+	const partMultiple = (participials.length / words) * 100 / HUMAN_PARTICIPIAL_PER_100;
+	if (participials.length >= PARTICIPIAL_MIN_HITS && partMultiple >= FLAG_AT_MULTIPLE) {
+		const m = partMultiple.toFixed(1);
 		const explanation =
 			language === 'es'
-				? 'Cláusulas de gerundio acumuladas: los modelos las usan 2-5x más.'
-				: 'Participial clauses pile up: models use them 2-5x more (Reinhart 2025).';
+				? `Cláusulas de gerundio a ${m}x la tasa humana (Reinhart 2025).`
+				: `Participial clauses at ${m}x the human rate (Reinhart 2025).`;
 		for (const h of participials) {
 			flags.push({
 				ruleId: 'participial-clause',

@@ -34,6 +34,19 @@ describe('reinhart plugin — nominalization', () => {
 		expect(flags[0].excerpt.toLowerCase()).toMatch(/tion|ment|ity|ness/);
 	});
 
+	it('reports the measured multiple of the human rate in the explanation', () => {
+		const text = FILLER_EN.repeat(30) + NOMINAL_EN.repeat(10);
+		const flags = byRule(reinhartFlags(text, 'en'), 'nominalization');
+		expect(flags[0].explanation).toMatch(/at \d+(\.\d)?x the human rate/);
+	});
+
+	it('does not flag rates under twice the human baseline', () => {
+		// ~3.7 noms per 100 words: above human (2.7) but under the 2x gate
+		const text = FILLER_EN.repeat(36) + NOMINAL_EN.repeat(4);
+		const flags = byRule(reinhartFlags(text, 'en'), 'nominalization');
+		expect(flags).toEqual([]);
+	});
+
 	it('stays silent on plain narrative of the same length', () => {
 		const text = FILLER_EN.repeat(40);
 		expect(byRule(reinhartFlags(text, 'en'), 'nominalization')).toEqual([]);
