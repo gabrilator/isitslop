@@ -3,7 +3,7 @@ import type { LLMAdapter } from '$lib/llm/adapter';
 import { scanDeterministic } from './deterministic';
 import { scanLLM } from './llm';
 import { mergeFlags, computeSlopScore } from './merge';
-import { wordCount as countWords } from '$lib/lang';
+import { wordCount as countWords, readingGrade } from '$lib/lang';
 
 export interface RunScannersParams {
 	text: string;
@@ -45,7 +45,8 @@ export async function runScanners(params: RunScannersParams): Promise<ScanResult
 			adverbPct: det.adverbPct,
 			passiveCount: det.passiveCount,
 			slopScore,
-			burstiness: det.burstiness
+			burstiness: det.burstiness,
+			readingGrade: readingGrade(params.text, params.language)
 		},
 		language: params.language,
 		warnings: warnings.length ? warnings : undefined

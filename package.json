@@ -31,6 +31,7 @@
 		"@google/genai": "^2.4.0",
 		"compromise": "^14.15.0",
 		"franc-min": "^6.2.0",
+		"text-readability": "^1.1.1",
 		"zod": "^4.4.3"
 	}
 }

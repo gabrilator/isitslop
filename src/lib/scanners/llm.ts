@@ -64,6 +64,26 @@ function escapeRx(s: string): string {
 	return s.replace(RX_ESCAPE, '\\$&');
 }
 
+// Trust but verify: the judge is told to be aggressive, so its flags pass a
+// cheap structural check before they count. Full-sentence rhetorical
+// questions are human; "not always X" hedges are not negate-then-replace.
+const NOT_X_BUT_Y_CHECK_EN =
+	/(?:\bnot\b|n't\b)[^.!?\n]{0,140}[.!?,;:]['"”’)\]]?\s*(?:it'?s\b|it\s+is\b|it\s+was\b|it\s+feels\b|that'?s\b|they'?re\b|they\s+\w+|we\s|you\s|instead\b|rather\b)/i;
+const NOT_X_BUT_Y_CHECK_ES =
+	/\bno\b[^.!?\n]{0,140}[.!?,;:]['"”’)\]]?\s*(?:es\b|son\b|se\s+trata|sino\b|más\s+bien|en\s+realidad)/i;
+
+export function plausibleLLMFlag(flag: Flag, language: Language): boolean {
+	const ex = flag.excerpt.replace(/[’‘]/g, "'").trim();
+	if (flag.ruleId === 'fragment-question') {
+		const words = ex.split(/\s+/u).filter(Boolean).length;
+		return ex.endsWith('?') && words <= 4;
+	}
+	if (flag.ruleId === 'not-x-but-y') {
+		return (language === 'es' ? NOT_X_BUT_Y_CHECK_ES : NOT_X_BUT_Y_CHECK_EN).test(ex);
+	}
+	return true;
+}
+
 function anchorFlag(text: string, flag: Flag): Flag | null {
 	if (text.slice(flag.startIndex, flag.endIndex) === flag.excerpt) return flag;
 
@@ -107,13 +127,23 @@ export async function scanLLM(
 
 	const anchored: Flag[] = [];
 	let dropped = 0;
+	let rejected = 0;
 	for (const raw of result.flags) {
 		const anchored1 = anchorFlag(text, raw as Flag);
-		if (anchored1) anchored.push(anchored1);
-		else dropped++;
+		if (!anchored1) {
+			dropped++;
+			continue;
+		}
+		if (!plausibleLLMFlag(anchored1, language)) {
+			rejected++;
+			continue;
+		}
+		anchored.push(anchored1);
 	}
-	if (dropped > 0) {
-		console.log(`[scanLLM] ${result.flags.length} returned, ${dropped} could not be anchored`);
+	if (dropped > 0 || rejected > 0) {
+		console.log(
+			`[scanLLM] ${result.flags.length} returned, ${dropped} unanchored, ${rejected} implausible`
+		);
 	}
 	return anchored;
 }

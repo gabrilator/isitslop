@@ -23,6 +23,8 @@ export interface ScanSummary {
 	slopScore: number;
 	/** Coefficient of variation of words-per-sentence; null when under 6 sentences. */
 	burstiness: number | null;
+	/** Flesch-Kincaid grade level; null for non-English text. */
+	readingGrade: number | null;
 }
 
 export interface ScanResult {

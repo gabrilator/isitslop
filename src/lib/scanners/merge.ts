@@ -116,6 +116,12 @@ const HARD_RED_MIN_SCORE = 25;
 // One lone soft sign in a long text is style, not slop.
 const FORGIVENESS_MIN_WORDS = 400;
 
+// Word-list hits are weak evidence one at a time. In long texts they only
+// reach the GLOBAL score with 3+ hits of the same rule; the concentration
+// window still counts every hit, so a dense cluster keeps scoring.
+const WEAK_WORDLIST_RULES = new Set(['jargon', 'ai-verb', 'vague-intensifier', 'delve-family']);
+const WEAK_MIN_COUNT = 3;
+
 // Concentration: slop clusters. Score the densest 100-word window standalone
 // and let it override a length-diluted global score.
 const WINDOW_WORDS = 100;
@@ -181,7 +187,19 @@ export function computeSlopScore(params: {
 		return 0;
 	}
 
-	const adjusted = rawTimesDiversity(slopFlags);
+	let globalFlags = slopFlags;
+	if (params.wordCount > FORGIVENESS_MIN_WORDS) {
+		const counts = new Map<string, number>();
+		for (const f of slopFlags) counts.set(f.ruleId, (counts.get(f.ruleId) ?? 0) + 1);
+		globalFlags = slopFlags.filter(
+			(f) => !WEAK_WORDLIST_RULES.has(f.ruleId) || (counts.get(f.ruleId) ?? 0) >= WEAK_MIN_COUNT
+		);
+		// a single surviving soft flag is still a lone sign: forgiven globally,
+		// while the concentration window below keeps watching for clusters
+		if (globalFlags.length === 1 && !isHardRed(globalFlags[0].ruleId)) globalFlags = [];
+	}
+
+	const adjusted = rawTimesDiversity(globalFlags);
 	const global = (adjusted * LENGTH_BASELINE) / Math.max(params.wordCount, LENGTH_BASELINE);
 	const concentration = params.text ? worstWindowScore(slopFlags, params.text) : 0;
 

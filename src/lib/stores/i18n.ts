@@ -39,6 +39,10 @@ export interface Strings {
 	rhythmSteady: string;
 	rhythmVaried: string;
 	flagsWord: string;
+	readingGrade: string;
+	gradeEasy: string;
+	gradeFormal: string;
+	gradeDense: string;
 }
 
 export const EN: Strings = {
@@ -79,7 +83,11 @@ export const EN: Strings = {
 	rhythmMonotone: 'Monotone, AI-like uniformity',
 	rhythmSteady: 'Steady',
 	rhythmVaried: 'Varied, reads human',
-	flagsWord: 'flags'
+	flagsWord: 'flags',
+	readingGrade: 'Reading grade',
+	gradeEasy: 'Conversational',
+	gradeFormal: 'Formal',
+	gradeDense: 'Dense'
 };
 
 export const ES: Strings = {
@@ -120,7 +128,11 @@ export const ES: Strings = {
 	rhythmMonotone: 'Monótono, uniformidad típica de IA',
 	rhythmSteady: 'Estable',
 	rhythmVaried: 'Variado, suena humano',
-	flagsWord: 'marcas'
+	flagsWord: 'marcas',
+	readingGrade: 'Nivel de lectura',
+	gradeEasy: 'Conversacional',
+	gradeFormal: 'Formal',
+	gradeDense: 'Denso'
 };
 
 export function strings(lang: Language): Strings {

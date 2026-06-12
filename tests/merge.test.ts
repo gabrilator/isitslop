@@ -202,6 +202,33 @@ describe('computeSlopScore — concentration window', () => {
 		expect(score).toBeLessThanOrEqual(2);
 	});
 
+	it('weak word-list singles are gated from the global score in long texts', () => {
+		const flags = [makeFlag('jargon', 'yellow', 0), makeFlag('jargon', 'yellow', 1)];
+		expect(computeSlopScore({ flags, wordCount: 600 })).toBe(0);
+	});
+
+	it('weak word-list rules count globally from 3 hits', () => {
+		const flags = Array.from({ length: 3 }, (_, i) => makeFlag('jargon', 'yellow', i));
+		expect(computeSlopScore({ flags, wordCount: 600 })).toBeGreaterThanOrEqual(1);
+	});
+
+	it('gated weak hits still score when packed into one window', () => {
+		const text = longText(1000);
+		const s = starts(text);
+		const packed = [
+			makeFlagAt('jargon', 'yellow', s[0]),
+			makeFlagAt('jargon', 'yellow', s[10]),
+			makeFlagAt('hedge', 'yellow', s[20])
+		];
+		const spread = [
+			makeFlagAt('jargon', 'yellow', s[0]),
+			makeFlagAt('jargon', 'yellow', s[450]),
+			makeFlagAt('hedge', 'yellow', s[900])
+		];
+		expect(computeSlopScore({ flags: packed, wordCount: 1000, text })).toBeGreaterThanOrEqual(5);
+		expect(computeSlopScore({ flags: spread, wordCount: 1000, text })).toBe(0);
+	});
+
 	it('short texts are unaffected by the window term (window ≥ whole text)', () => {
 		const text = longText(80);
 		const s = starts(text);
