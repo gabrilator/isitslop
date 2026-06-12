@@ -102,8 +102,7 @@ export const EN: Strings = {
 	tierHeavy: 'Heavy',
 	tierSlop: 'Slop',
 	aboutTitle: 'Built on published research',
-	aboutPhilosophy:
-		'Every flag names the rule that fired and the research behind it. Your text is analyzed once and never stored.'
+	aboutPhilosophy: 'Learn more about the signs of AI writing:'
 };
 
 export const ES: Strings = {
@@ -156,8 +155,7 @@ export const ES: Strings = {
 	tierHeavy: 'Pesado',
 	tierSlop: 'Slop',
 	aboutTitle: 'Basado en investigación publicada',
-	aboutPhilosophy:
-		'Cada marca nombra la regla que la disparó y la investigación detrás. Tu texto se analiza una vez y nunca se guarda.'
+	aboutPhilosophy: 'Conocé más sobre las señales de escritura con IA:'
 };
 
 export function strings(lang: Language): Strings {
