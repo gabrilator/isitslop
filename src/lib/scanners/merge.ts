@@ -119,7 +119,14 @@ const FORGIVENESS_MIN_WORDS = 400;
 // Word-list hits are weak evidence one at a time. In long texts they only
 // reach the GLOBAL score with 3+ hits of the same rule; the concentration
 // window still counts every hit, so a dense cluster keeps scoring.
-const WEAK_WORDLIST_RULES = new Set(['jargon', 'ai-verb', 'vague-intensifier', 'delve-family']);
+const WEAK_WORDLIST_RULES = new Set([
+	'jargon',
+	'ai-verb',
+	'vague-intensifier',
+	'delve-family',
+	'weasel-attribution',
+	'not-only-but-also'
+]);
 const WEAK_MIN_COUNT = 3;
 
 // Concentration: slop clusters. Score the densest 100-word window standalone

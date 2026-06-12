@@ -19,6 +19,8 @@ import { AI_DISCLAIMERS_EN, AI_DISCLAIMERS_ES } from '$lib/rules/aiDisclaimers';
 import { HEDGES_EN, HEDGES_ES } from '$lib/rules/hedges';
 import { CONCLUSION_CLOSERS_EN, CONCLUSION_CLOSERS_ES } from '$lib/rules/conclusionClosers';
 import { PARTICIPIAL_GERUNDS_EN, PARTICIPIAL_GERUNDS_ES } from '$lib/rules/participialComments';
+import { WEASEL_EN, WEASEL_ES } from '$lib/rules/weaselAttribution';
+import { DESPITE_PATTERNS_EN, DESPITE_PATTERNS_ES } from '$lib/rules/despiteChallenges';
 import { reinhartFlags } from '$lib/rules/reinhart';
 
 const RX_ESCAPE = /[.*+?^${}()|[\]\\]/g;
@@ -583,6 +585,78 @@ function conclusionClosers(text: string, language: Language): Flag[] {
 	return flags;
 }
 
+function weaselAttribution(text: string, language: Language): Flag[] {
+	const list = language === 'es' ? WEASEL_ES : WEASEL_EN;
+	const explanation =
+		language === 'es'
+			? 'Opinión colgada de una autoridad vaga. Nombrá la fuente.'
+			: 'Opinion pinned on a vague authority. Name the source.';
+	const flags: Flag[] = [];
+	for (const phrase of list) {
+		for (const hit of findPhrase(text, phrase)) {
+			flags.push({
+				ruleId: 'weasel-attribution',
+				severity: 'yellow',
+				startIndex: hit.start,
+				endIndex: hit.end,
+				excerpt: hit.excerpt,
+				explanation
+			});
+		}
+	}
+	return flags;
+}
+
+function despiteChallenges(text: string, language: Language): Flag[] {
+	const patterns = language === 'es' ? DESPITE_PATTERNS_ES : DESPITE_PATTERNS_EN;
+	const explanation =
+		language === 'es'
+			? 'La fórmula "a pesar de los desafíos". Un cierre enlatado de IA.'
+			: 'The "despite challenges, bright future" formula. A canned AI ending.';
+	const flags: Flag[] = [];
+	for (const re of patterns) {
+		re.lastIndex = 0;
+		let m: RegExpExecArray | null;
+		while ((m = re.exec(text)) !== null) {
+			flags.push({
+				ruleId: 'despite-challenges',
+				severity: 'yellow',
+				startIndex: m.index,
+				endIndex: m.index + m[0].length,
+				excerpt: m[0],
+				explanation
+			});
+		}
+	}
+	return flags;
+}
+
+const NOT_ONLY_EN = /\bnot\s+only\b[^.!?\n]{2,120}?\bbut(?:\s+also)?\b[^.!?\n]{2,120}/gi;
+const NOT_ONLY_ES = /\bno\s+s[oó]lo\b[^.!?\n]{2,120}?\bsino\b(?:\s+(?:que|tambi[ée]n))?[^.!?\n]{0,120}/giu;
+
+function notOnlyButAlso(text: string, language: Language): Flag[] {
+	const re = language === 'es' ? NOT_ONLY_ES : NOT_ONLY_EN;
+	const explanation =
+		language === 'es'
+			? '"No solo X sino también Y". Paralelismo favorito de la IA.'
+			: '"Not only X but also Y". A favorite AI emphasis frame.';
+	re.lastIndex = 0;
+	const flags: Flag[] = [];
+	let m: RegExpExecArray | null;
+	while ((m = re.exec(text)) !== null) {
+		const excerpt = m[0].trimEnd();
+		flags.push({
+			ruleId: 'not-only-but-also',
+			severity: 'yellow',
+			startIndex: m.index,
+			endIndex: m.index + excerpt.length,
+			excerpt,
+			explanation
+		});
+	}
+	return flags;
+}
+
 const SENTENCE_RE = /[^.!?¡¿\n]+(?:[.!?]+|(?=\n|$))/gu;
 
 /** Coefficient of variation of words-per-sentence. Null below 6 sentences. */
@@ -668,6 +742,9 @@ export function scanDeterministic(text: string, language: Language): Determinist
 		...hedges(text, language),
 		...participialComments(text, language),
 		...conclusionClosers(text, language),
+		...weaselAttribution(text, language),
+		...despiteChallenges(text, language),
+		...notOnlyButAlso(text, language),
 		...reinhartFlags(text, language)
 	];
 

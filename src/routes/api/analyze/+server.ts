@@ -3,7 +3,7 @@ import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
 import { runScanners } from '$lib/scanners';
 import { geminiAdapter } from '$lib/llm/gemini';
-import { resolveLanguage, wordCount } from '$lib/lang';
+import { resolveLanguage, wordCount, foreignLanguageNotice } from '$lib/lang';
 import { checkRequest, checkLLM, recordLLM } from '$lib/server/rateLimit';
 import { textSanity } from '$lib/server/guards';
 import type { AnalyzeRequestBody } from '$lib/types';
@@ -71,6 +71,11 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 		apiKey,
 		useLLM
 	});
+
+	const notice = foreignLanguageNotice(text);
+	if (notice) {
+		result.warnings = [notice, ...(result.warnings ?? [])];
+	}
 
 	if (llmLimited) {
 		result.warnings = [

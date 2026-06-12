@@ -494,6 +494,85 @@ describe('Scanner A — enriched jargon lists', () => {
 	});
 });
 
+describe('Scanner A — weasel-attribution', () => {
+	it('flags vague authorities (EN)', () => {
+		const text = 'Experts argue the move was wise, and the change is widely regarded as a success.';
+		const { flags } = scanDeterministic(text, 'en');
+		expect(findByRule(flags, 'weasel-attribution')).toHaveLength(2);
+	});
+
+	it('flags vague authorities (ES)', () => {
+		const text = 'Según los expertos, el cambio fue acertado y es considerado por muchos un éxito.';
+		const { flags } = scanDeterministic(text, 'es');
+		expect(findByRule(flags, 'weasel-attribution').length).toBeGreaterThanOrEqual(2);
+	});
+
+	it('does not flag a named source', () => {
+		const text = 'Dr. Smith argues the move was wise after her ten years of field work.';
+		const { flags } = scanDeterministic(text, 'en');
+		expect(findByRule(flags, 'weasel-attribution')).toHaveLength(0);
+	});
+});
+
+describe('Scanner A — despite-challenges', () => {
+	it('flags the despite-challenges formula (EN)', () => {
+		const text = 'Despite these challenges, the company continued to grow and faces several challenges ahead.';
+		const { flags } = scanDeterministic(text, 'en');
+		expect(findByRule(flags, 'despite-challenges')).toHaveLength(2);
+	});
+
+	it('flags the formula in Spanish', () => {
+		const text = 'A pesar de estos desafíos, la empresa siguió creciendo con perspectivas de futuro claras.';
+		const { flags } = scanDeterministic(text, 'es');
+		expect(findByRule(flags, 'despite-challenges')).toHaveLength(2);
+	});
+
+	it('does not flag ordinary despite or challenges', () => {
+		const text = 'Despite the rain we walked home, and the climb was a challenge for both of us.';
+		const { flags } = scanDeterministic(text, 'en');
+		expect(findByRule(flags, 'despite-challenges')).toHaveLength(0);
+	});
+});
+
+describe('Scanner A — not-only-but-also', () => {
+	it('flags the additive parallelism (EN)', () => {
+		const text = 'She was not only fast on the track but also precise in every jump she made.';
+		const { flags } = scanDeterministic(text, 'en');
+		expect(findByRule(flags, 'not-only-but-also')).toHaveLength(1);
+	});
+
+	it('flags no solo ... sino también (ES)', () => {
+		const text = 'El plan no solo es rápido de armar, sino también barato para todos los equipos.';
+		const { flags } = scanDeterministic(text, 'es');
+		expect(findByRule(flags, 'not-only-but-also')).toHaveLength(1);
+	});
+
+	it('does not flag not only without the but', () => {
+		const text = 'It was not only her decision. The family had a say in the matter too.';
+		const { flags } = scanDeterministic(text, 'en');
+		expect(findByRule(flags, 'not-only-but-also')).toHaveLength(0);
+	});
+});
+
+describe('Scanner A — wiki vocab additions', () => {
+	it('flags new EN entries (enduring, focal point, generated debate)', () => {
+		const text = 'The enduring monument became a focal point of the town and generated debate for years.';
+		const { flags } = scanDeterministic(text, 'en');
+		const excerpts = findByRule(flags, 'jargon').map((f) => f.excerpt.toLowerCase());
+		expect(excerpts).toContain('enduring');
+		expect(excerpts).toContain('focal point');
+		expect(excerpts).toContain('generated debate');
+	});
+
+	it('flags new ES entries (belleza natural, compromiso con)', () => {
+		const text = 'La belleza natural del valle refleja su compromiso con el turismo de la zona.';
+		const { flags } = scanDeterministic(text, 'es');
+		const excerpts = findByRule(flags, 'jargon').map((f) => f.excerpt.toLowerCase());
+		expect(excerpts).toContain('belleza natural');
+		expect(excerpts).toContain('compromiso con');
+	});
+});
+
 describe('sentenceBurstiness', () => {
 	it('returns null under 6 sentences', () => {
 		expect(sentenceBurstiness('One two three. Four five six. Seven eight.')).toBeNull();

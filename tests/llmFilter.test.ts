@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { plausibleLLMFlag } from '../src/lib/scanners/llm';
-import { readingGrade } from '../src/lib/lang';
+import { readingGrade, foreignLanguageNotice } from '../src/lib/lang';
 import type { Flag } from '../src/lib/types';
 
 function llmFlag(ruleId: string, excerpt: string): Flag {
@@ -92,5 +92,38 @@ describe('readingGrade', () => {
 
 	it('returns null for Spanish (not supported yet)', () => {
 		expect(readingGrade('El puente fue construido por los romanos hace siglos.', 'es')).toBeNull();
+	});
+});
+
+describe('foreignLanguageNotice', () => {
+	it('stays silent for English', () => {
+		expect(
+			foreignLanguageNotice(
+				'The train left the small station before sunrise and we watched the hills turn pink through the window.'
+			)
+		).toBeNull();
+	});
+
+	it('stays silent for Spanish', () => {
+		expect(
+			foreignLanguageNotice(
+				'El tren salió de la estación antes del amanecer y miramos los cerros ponerse rosados por la ventana del vagón.'
+			)
+		).toBeNull();
+	});
+
+	it('warns for French', () => {
+		const notice = foreignLanguageNotice(
+			"Le train est parti de la petite gare avant le lever du soleil et nous avons regardé les collines par la fenêtre du wagon pendant tout le voyage."
+		);
+		expect(notice).toMatch(/French/);
+		expect(notice).toMatch(/English and Spanish only/);
+	});
+
+	it('warns for Italian', () => {
+		const notice = foreignLanguageNotice(
+			'Il treno è partito dalla piccola stazione prima del sorgere del sole e abbiamo guardato le colline dal finestrino del vagone per tutto il viaggio.'
+		);
+		expect(notice).toMatch(/Italian/);
 	});
 });
