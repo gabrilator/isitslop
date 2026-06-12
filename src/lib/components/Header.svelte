@@ -40,7 +40,7 @@
 <header class="border-b border-ink/10 bg-paper">
 	<div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
 		<div class="flex items-center gap-3">
-			<Parrot size={48} {mood} {scanning} title={t.mascotName} />
+			<Parrot size={64} {mood} {scanning} title={t.mascotName} />
 			<div class="leading-tight">
 				<h1 class="font-mono text-lg font-semibold tracking-tight">isitslop</h1>
 				<p class="text-xs text-ink/60">{t.tagline}</p>
@@ -50,7 +50,7 @@
 			{#if wc > 0}
 				<span class={`font-mono text-xs ${over ? 'text-brick' : 'text-ink/60'}`}>
 					{wc}
-					{t.words}{over ? ` · ${t.max}` : ''}
+					{wc === 1 ? t.word : t.words}{over ? ` · ${t.max}` : ''}
 				</span>
 			{/if}
 			<button

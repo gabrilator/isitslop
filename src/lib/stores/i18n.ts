@@ -4,6 +4,7 @@ export interface Strings {
 	tagline: string;
 	openSourceRules: string;
 	placeholder: string;
+	word: string;
 	words: string;
 	max: string;
 	analyze: string;
@@ -56,6 +57,7 @@ export const EN: Strings = {
 	tagline: "Catch it before it's too late.",
 	openSourceRules: 'Open-source rules',
 	placeholder: 'Paste your text here',
+	word: 'word',
 	words: 'words',
 	max: 'max 1500',
 	analyze: 'Analyze',
@@ -109,6 +111,7 @@ export const ES: Strings = {
 	tagline: 'Atrapala antes de que sea tarde.',
 	openSourceRules: 'Reglas abiertas',
 	placeholder: 'Pegá tu texto acá',
+	word: 'palabra',
 	words: 'palabras',
 	max: 'max 1500',
 	analyze: 'Analizar',
