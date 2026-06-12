@@ -53,7 +53,7 @@
 
 <svelte:window onkeydown={onKey} />
 
-<div class="relative h-full" bind:this={containerEl}>
+<div class="paper relative h-full" bind:this={containerEl}>
 	{#if flags}
 		<button
 			type="button"
@@ -63,7 +63,7 @@
 			{t.editAgain}
 		</button>
 		<div
-			class="paper min-h-[320px] whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8"
+			class="min-h-[320px] whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8"
 			onclick={onClickRendered}
 			role="presentation"
 		>
@@ -110,7 +110,7 @@
 		{/if}
 	{:else}
 		<textarea
-			class="paper min-h-[320px] w-full resize-none whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8 placeholder:text-ink/40 focus:outline-none"
+			class="page-input min-h-[320px] w-full resize-none whitespace-pre-wrap break-words bg-transparent px-20 py-6 font-serif text-base leading-8 placeholder:text-ink/40 focus:outline-none"
 			placeholder={t.placeholder}
 			value={text}
 			oninput={(e) => onTextChange((e.currentTarget as HTMLTextAreaElement).value)}

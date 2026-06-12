@@ -3,7 +3,6 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Editor from '$lib/components/Editor.svelte';
 	import FlagsPanel from '$lib/components/FlagsPanel.svelte';
-	import Toolbar from '$lib/components/Toolbar.svelte';
 	import { strings } from '$lib/stores/i18n';
 	import type { ScanResult } from '$lib/types';
 	import { wordCount } from '$lib/lang';
@@ -83,9 +82,7 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
-	<Header {t} {mood} scanning={loading} />
-
-	<Toolbar {t} {text} {loading} {canAnalyze} onAnalyze={analyze} />
+	<Header {t} {mood} scanning={loading} {text} {loading} {canAnalyze} onAnalyze={analyze} />
 
 	<main
 		class={`mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 gap-0 ${result ? 'lg:grid-cols-[1fr_380px]' : ''}`}

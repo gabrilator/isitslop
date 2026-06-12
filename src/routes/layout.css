@@ -23,8 +23,8 @@ body {
 	font-family: var(--font-serif);
 }
 
-/* the empty page starts short and grows with the text */
-textarea.paper {
+/* the input grows with the text; the ruled paper behind it fills the column */
+.page-input {
 	field-sizing: content;
 }
 
