@@ -43,6 +43,13 @@ export interface Strings {
 	gradeEasy: string;
 	gradeFormal: string;
 	gradeDense: string;
+	gradeInfo: string;
+	gradeInfoLabel: string;
+	tierHuman: string;
+	tierMild: string;
+	tierHeavy: string;
+	tierSlop: string;
+	scoreHumanNote: string;
 }
 
 export const EN: Strings = {
@@ -87,7 +94,15 @@ export const EN: Strings = {
 	readingGrade: 'Reading grade',
 	gradeEasy: 'Conversational',
 	gradeFormal: 'Formal',
-	gradeDense: 'Dense'
+	gradeDense: 'Dense',
+	gradeInfo:
+		'Flesch-Kincaid grade: the US school grade needed to read this with ease. Aim for 6 to 9 for a general audience. Lower is clearer, not dumber.',
+	gradeInfoLabel: 'What is this?',
+	tierHuman: 'Reads human',
+	tierMild: 'Mild',
+	tierHeavy: 'Heavy',
+	tierSlop: 'Slop',
+	scoreHumanNote: 'Under 15 reads human. A few stray tells are normal in real writing.'
 };
 
 export const ES: Strings = {
@@ -132,7 +147,15 @@ export const ES: Strings = {
 	readingGrade: 'Nivel de lectura',
 	gradeEasy: 'Conversacional',
 	gradeFormal: 'Formal',
-	gradeDense: 'Denso'
+	gradeDense: 'Denso',
+	gradeInfo:
+		'Nivel Flesch-Kincaid: el grado escolar que pide el texto para leerse fácil. Apuntá a 6 a 9 para público general. Más bajo es más claro, no más tonto.',
+	gradeInfoLabel: '¿Qué es esto?',
+	tierHuman: 'Suena humano',
+	tierMild: 'Leve',
+	tierHeavy: 'Pesado',
+	tierSlop: 'Slop',
+	scoreHumanNote: 'Menos de 15 suena humano. Algunas marcas sueltas son normales al escribir.'
 };
 
 export function strings(lang: Language): Strings {

@@ -17,6 +17,7 @@
 	let expanded = $state<Record<string, boolean>>({});
 	let slopOpen = $state(false);
 	let tipsOpen = $state(false);
+	let gradeInfoOpen = $state(false);
 	let displayScore = $state(0);
 	let panelEl: HTMLDivElement | undefined = $state();
 
@@ -26,6 +27,7 @@
 		expanded = {};
 		slopOpen = false;
 		tipsOpen = false;
+		gradeInfoOpen = false;
 		const start = performance.now();
 		const dur = 700;
 		let raf = requestAnimationFrame(function step(now: number) {
@@ -51,12 +53,13 @@
 		});
 	});
 
-	function scoreLabel(score: number): string {
-		if (score < 15) return t.clean;
-		if (score < 40) return 'Mild';
-		if (score < 70) return 'Heavy';
-		return 'Slop';
-	}
+	let tier = $derived.by(() => {
+		const score = result?.summary.slopScore ?? 0;
+		if (score < 15) return { label: t.tierHuman, cls: 'text-[#3d7a4a]' };
+		if (score < 40) return { label: t.tierMild, cls: 'text-ochre' };
+		if (score < 70) return { label: t.tierHeavy, cls: 'text-brick' };
+		return { label: t.tierSlop, cls: 'text-[#7a1818]' };
+	});
 
 	interface Group {
 		ruleId: string;
@@ -98,10 +101,10 @@
 		return 'bg-brick';
 	});
 
-	function gradeLabel(grade: number): string {
-		if (grade <= 8) return t.gradeEasy;
-		if (grade <= 12) return t.gradeFormal;
-		return t.gradeDense;
+	function gradeTier(grade: number): { label: string; cls: string } {
+		if (grade <= 8) return { label: t.gradeEasy, cls: 'text-[#3d7a4a]' };
+		if (grade <= 12) return { label: t.gradeFormal, cls: 'text-ochre' };
+		return { label: t.gradeDense, cls: 'text-brick' };
 	}
 
 	let rhythm = $derived.by(() => {
@@ -194,14 +197,19 @@
 		<div class="border-b border-ink/10 p-4">
 			<div class="mb-3 flex items-baseline justify-between">
 				<span class="font-mono text-xs uppercase tracking-wide text-ink/60">{t.slopScore}</span>
-				<span class="font-mono text-xs uppercase tracking-wide text-ink/60"
-					>{scoreLabel(result.summary.slopScore)}</span
+				<span class={`font-mono text-xs font-semibold uppercase tracking-wide ${tier.cls}`}
+					>{tier.label}</span
 				>
 			</div>
-			<div class="mb-3 flex items-baseline gap-2">
-				<span class="font-mono text-4xl font-semibold">{displayScore}</span>
+			<div class="mb-1 flex items-baseline gap-2">
+				<span class={`font-mono text-4xl font-semibold ${tier.cls}`}>{displayScore}</span>
 				<span class="text-xs text-ink/60">/ 100</span>
 			</div>
+			{#if result.summary.slopScore < 15}
+				<p class="mb-2 text-[11px] text-ink/60">{t.scoreHumanNote}</p>
+			{:else}
+				<div class="mb-2"></div>
+			{/if}
 			<dl class="grid grid-cols-2 gap-y-1 text-xs">
 				<dt class="text-ink/60">{t.red}</dt>
 				<dd class="text-right font-mono">{result.summary.redCount}</dd>
@@ -231,13 +239,33 @@
 				</div>
 			{/if}
 			{#if result.summary.readingGrade !== null}
-				<div class="mt-3 flex items-baseline justify-between gap-2">
-					<span class="font-mono text-[10px] uppercase tracking-widest text-ink/40"
-						>{t.readingGrade}</span
-					>
-					<span class="text-[11px] text-ink/60">
-						{result.summary.readingGrade} · {gradeLabel(result.summary.readingGrade)}
-					</span>
+				{@const gt = gradeTier(result.summary.readingGrade)}
+				<div class="mt-3 border-t border-ink/10 pt-3">
+					<div class="mb-1 flex items-center justify-between gap-2">
+						<span class="font-mono text-[10px] uppercase tracking-widest text-ink/40"
+							>{t.readingGrade}</span
+						>
+						<button
+							type="button"
+							class="flex size-4 items-center justify-center rounded-full border border-ink/30 font-serif text-[10px] italic text-ink/50 hover:border-ink/60 hover:text-ink"
+							aria-label={t.gradeInfoLabel}
+							aria-expanded={gradeInfoOpen}
+							onclick={() => (gradeInfoOpen = !gradeInfoOpen)}
+						>
+							i
+						</button>
+					</div>
+					<div class="flex items-baseline gap-2">
+						<span class={`font-mono text-2xl font-semibold ${gt.cls}`}
+							>{result.summary.readingGrade}</span
+						>
+						<span class={`text-xs ${gt.cls}`}>{gt.label}</span>
+					</div>
+					{#if gradeInfoOpen}
+						<p class="mt-2 rounded border border-ink/10 bg-ink/5 p-2 text-[11px] leading-snug text-ink/70">
+							{t.gradeInfo}
+						</p>
+					{/if}
 				</div>
 			{/if}
 		</div>
