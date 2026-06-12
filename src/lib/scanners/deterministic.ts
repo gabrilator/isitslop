@@ -148,7 +148,7 @@ function fragmentQuestions(text: string, list: string[]): Flag[] {
 				startIndex: m.index,
 				endIndex: m.index + m[0].length,
 				excerpt: m[0],
-				explanation: 'Fragment-question reveal — classic AI rhetorical tic.'
+				explanation: 'Fragment-question reveal, a classic AI rhetorical tic.'
 			});
 		}
 	}
@@ -184,7 +184,7 @@ function delveFamily(text: string, list: string[], language: Language): Flag[] {
 				startIndex: hit.start,
 				endIndex: hit.end,
 				excerpt: hit.excerpt,
-				explanation: 'Vague "exploration" verb — say what you actually do.'
+				explanation: 'Vague "exploration" verb. Say what you actually do.'
 			});
 		}
 	}
@@ -219,7 +219,7 @@ function vagueIntensifiers(text: string, list: string[]): Flag[] {
 				startIndex: hit.start,
 				endIndex: hit.end,
 				excerpt: hit.excerpt,
-				explanation: 'Vague intensifier — adds no information.'
+				explanation: 'Vague intensifier. It adds no information.'
 			});
 		}
 	}
@@ -282,8 +282,8 @@ function adverbs(text: string, language: Language): { flags: Flag[]; count: numb
 	if (flags.length >= 4) {
 		const clusterNote =
 			language === 'es'
-				? 'Muchos adverbios juntos — pueden sonar tímidos o evasivos.'
-				: 'Many adverbs cluster — can sound timid or evasive.';
+				? 'Muchos adverbios juntos pueden sonar tímidos. Recortá algunos.'
+				: 'Many adverbs together can sound timid. Trim a few.';
 		for (const f of flags) f.explanation = clusterNote;
 	}
 	const totalWords = text.split(/\s+/u).filter(Boolean).length;
@@ -321,7 +321,7 @@ function passiveVoice(text: string, language: Language): Flag[] {
 			startIndex: m.index,
 			endIndex: m.index + m[0].length,
 			excerpt: m[0],
-			explanation: 'Passive voice — prefer an active subject when possible.'
+			explanation: 'Use active voice when possible.'
 		});
 	}
 	return flags;
@@ -341,7 +341,7 @@ function notXButY(text: string, language: Language): Flag[] {
 			startIndex: m.index,
 			endIndex: m.index + m[0].length,
 			excerpt: m[0].trimEnd(),
-			explanation: 'Two-sentence "not X. Y" framing — a classic AI rhetorical move.'
+			explanation: 'Two-sentence "not X. Y" framing, a classic AI rhetorical move.'
 		});
 	}
 	return flags;
@@ -367,7 +367,7 @@ function colonLabels(text: string): Flag[] {
 		startIndex: h.start,
 		endIndex: h.end,
 		excerpt: h.excerpt,
-		explanation: "Repeated 'Label:' headings — a parroted leadership-deck structure.",
+		explanation: "Repeated 'Label:' headings, a parroted leadership-deck structure.",
 		suggestion: 'Pick one structure or write it as a paragraph.'
 	}));
 }
@@ -384,7 +384,7 @@ function artifactResidue(text: string, language: Language): Flag[] {
 	const explanation =
 		language === 'es'
 			? 'Artefacto literal de herramienta de IA pegado en el texto.'
-			: 'Literal AI-tool artifact pasted in — a copy-paste fingerprint.';
+			: 'Literal AI-tool artifact pasted in, a copy-paste fingerprint.';
 	const flags: Flag[] = [];
 	for (const re of ARTIFACT_PATTERNS) {
 		re.lastIndex = 0;
@@ -458,8 +458,8 @@ function aiDisclaimers(text: string, language: Language): Flag[] {
 	const list = language === 'es' ? AI_DISCLAIMERS_ES : AI_DISCLAIMERS_EN;
 	const explanation =
 		language === 'es'
-			? 'El modelo hablando de sí mismo — declaración literal de IA.'
-			: 'The model talking about itself — a literal AI disclaimer.';
+			? 'El modelo hablando de sí mismo, declaración literal de IA.'
+			: 'The model talking about itself, a literal AI disclaimer.';
 	const flags: Flag[] = [];
 	for (const phrase of list) {
 		for (const hit of findPhrase(text, phrase)) {
@@ -504,12 +504,12 @@ function hedges(text: string, language: Language): Flag[] {
 	const list = language === 'es' ? HEDGES_ES : HEDGES_EN;
 	const explanation =
 		language === 'es'
-			? 'Muletilla de relleno — andá directo al punto.'
-			: 'Throat-clearing hedge — state the point directly.';
+			? 'Muletilla de relleno. Andá directo al punto.'
+			: 'Throat-clearing hedge. State the point directly.';
 	const suggestion =
 		language === 'es'
 			? 'Cortala: la oración funciona sin eso.'
-			: 'Cut it — the sentence works without it.';
+			: 'Cut it. The sentence works without it.';
 	const flags: Flag[] = [];
 	for (const phrase of list) {
 		for (const hit of findPhrase(text, phrase)) {
@@ -531,8 +531,8 @@ function participialComments(text: string, language: Language): Flag[] {
 	const list = language === 'es' ? PARTICIPIAL_GERUNDS_ES : PARTICIPIAL_GERUNDS_EN;
 	const explanation =
 		language === 'es'
-			? 'Gerundio colgado al final — análisis sin argumento.'
-			: 'Bolted-on "-ing" comment clause — analysis without an argument.';
+			? 'Gerundio colgado al final, análisis sin argumento.'
+			: 'Bolted-on "-ing" comment clause, analysis without an argument.';
 	const re = new RegExp(`,\\s+(${list.map(escapeRx).join('|')})(?![\\p{L}\\p{N}])`, 'giu');
 	const flags: Flag[] = [];
 	let m: RegExpExecArray | null;
@@ -554,8 +554,8 @@ function conclusionClosers(text: string, language: Language): Flag[] {
 	const list = language === 'es' ? CONCLUSION_CLOSERS_ES : CONCLUSION_CLOSERS_EN;
 	const explanation =
 		language === 'es'
-			? 'Cierre de resumen formulaico — la IA reformula lo obvio.'
-			: 'Formulaic summary closer — AI loves to restate the obvious.';
+			? 'Cierre de resumen formulaico. La IA reformula lo obvio.'
+			: 'Formulaic summary closer. AI loves to restate the obvious.';
 	const suggestion =
 		language === 'es'
 			? 'Terminá con tu punto más fuerte, no con un resumen.'

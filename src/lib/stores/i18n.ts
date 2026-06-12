@@ -76,9 +76,9 @@ export const EN: Strings = {
 	slopFlags: 'Slop flags',
 	writingTips: 'Writing tips',
 	rhythm: 'Sentence rhythm',
-	rhythmMonotone: 'Monotone — AI-like uniformity',
+	rhythmMonotone: 'Monotone, AI-like uniformity',
 	rhythmSteady: 'Steady',
-	rhythmVaried: 'Varied — reads human',
+	rhythmVaried: 'Varied, reads human',
 	flagsWord: 'flags'
 };
 
@@ -117,9 +117,9 @@ export const ES: Strings = {
 	slopFlags: 'Banderas de slop',
 	writingTips: 'Consejos de escritura',
 	rhythm: 'Ritmo de oraciones',
-	rhythmMonotone: 'Monótono — uniformidad típica de IA',
+	rhythmMonotone: 'Monótono, uniformidad típica de IA',
 	rhythmSteady: 'Estable',
-	rhythmVaried: 'Variado — suena humano',
+	rhythmVaried: 'Variado, suena humano',
 	flagsWord: 'marcas'
 };
 

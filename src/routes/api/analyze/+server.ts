@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 	const gate = checkRequest(ip);
 	if (!gate.ok) {
 		return json(
-			{ message: 'Too many requests — slow down.' },
+			{ message: 'Too many requests. Slow down.' },
 			{ status: 429, headers: { 'retry-after': String(gate.retryAfterSec) } }
 		);
 	}
@@ -75,12 +75,12 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 	if (llmLimited) {
 		result.warnings = [
 			...(result.warnings ?? []),
-			'LLM rate limit reached — deterministic rules only for now. Try again in a bit.'
+			'LLM rate limit reached, deterministic rules only for now. Try again in a bit.'
 		];
 	} else if (!useLLM) {
 		result.warnings = [
 			...(result.warnings ?? []),
-			'No API key provided — LLM scanners skipped (deterministic only).'
+			'No API key provided, LLM scanners skipped (deterministic only).'
 		];
 	}
 

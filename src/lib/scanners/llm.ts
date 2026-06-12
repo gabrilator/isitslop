@@ -26,8 +26,8 @@ For each flag return:
 - severity: always "red"
 - excerpt: the exact phrase from the user's text. Copy it verbatim — same words, same punctuation, same case. The server will locate it for you.
 - startIndex / endIndex: a best-effort guess at character offsets (the server re-anchors if they're off, so don't agonise).
-- explanation: ≤ 80 chars, plain English, why it reads as AI.
-- suggestion (optional): brief rewrite hint, ≤ 140 chars.
+- explanation: ≤ 80 chars, plain English, why it reads as AI. Never use an em dash in it.
+- suggestion (optional): brief rewrite hint, ≤ 140 chars. Never use an em dash in it.
 
 Be aggressive — if a pattern is there, flag it. Up to 12 flags total. Return { "flags": [] } if nothing found.`;
 
@@ -54,8 +54,8 @@ Para cada flag:
 - severity: siempre "red".
 - excerpt: la frase exacta del texto del usuario. Copiala palabra por palabra, con la misma puntuación y mayúsculas. El servidor la localiza.
 - startIndex / endIndex: una estimación; el servidor re-ancla si están mal.
-- explanation: ≤ 80 caracteres.
-- suggestion (opcional): ≤ 140 caracteres.
+- explanation: ≤ 80 caracteres. Nunca uses raya (em dash).
+- suggestion (opcional): ≤ 140 caracteres. Nunca uses raya (em dash).
 
 Sé agresivo. Si el patrón está, marcalo. Máximo 12 flags. Devolvé { "flags": [] } si no hay nada.`;
 
