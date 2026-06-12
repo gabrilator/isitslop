@@ -1,7 +1,7 @@
 // Sanity guards that run before any scanner (and especially before the LLM
 // call): the endpoint should only spend tokens on things that look like prose.
 
-const MAX_CHARS = 12_000; // 1000 words comfortably fits; megabyte bodies do not
+const MAX_CHARS = 18_000; // 1500 words comfortably fits; megabyte bodies do not
 const MIN_LETTER_RATIO = 0.55; // normal EN/ES prose sits around 0.75–0.85
 const MIN_UNIQUE_RATIO = 0.15; // "spam spam spam …" detector
 const MAX_AVG_WORD_LEN = 14; // base64 / minified-code detector

@@ -22,7 +22,7 @@
 		result && result.summary.slopScore >= 40 ? 'sharp' : 'calm'
 	);
 	let wc = $derived(wordCount(text));
-	let canAnalyze = $derived(wc >= 20 && wc <= 1000);
+	let canAnalyze = $derived(wc >= 10 && wc <= 1500);
 
 	async function analyze() {
 		if (!canAnalyze) return;
@@ -87,7 +87,9 @@
 
 	<Toolbar {t} {text} {loading} {canAnalyze} onAnalyze={analyze} />
 
-	<main class="mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 gap-0 lg:grid-cols-[1fr_380px]">
+	<main
+		class={`mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 gap-0 ${result ? 'lg:grid-cols-[1fr_380px]' : ''}`}
+	>
 		<section class="border-x border-ink/10">
 			{#if error}
 				<div class="m-4 rounded border border-brick/40 bg-brick/5 p-3 text-sm">
@@ -116,9 +118,11 @@
 			/>
 		</section>
 
-		<aside class="hidden border-r border-ink/10 lg:block">
-			<FlagsPanel {t} {result} {activeId} onSelect={(id) => (activeId = id)} />
-		</aside>
+		{#if result}
+			<aside class="hidden border-r border-ink/10 lg:block">
+				<FlagsPanel {t} {result} {activeId} onSelect={(id) => (activeId = id)} />
+			</aside>
+		{/if}
 	</main>
 
 	<Footer {t} />

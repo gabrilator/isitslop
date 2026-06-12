@@ -23,6 +23,11 @@ body {
 	font-family: var(--font-serif);
 }
 
+/* the empty page starts short and grows with the text */
+textarea.paper {
+	field-sizing: content;
+}
+
 .paper {
 	background-color: var(--color-paper);
 	background-image:

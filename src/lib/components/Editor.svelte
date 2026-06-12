@@ -63,7 +63,7 @@
 			{t.editAgain}
 		</button>
 		<div
-			class="paper h-full min-h-[420px] overflow-auto whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8"
+			class="paper min-h-[320px] whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8"
 			onclick={onClickRendered}
 			role="presentation"
 		>
@@ -110,7 +110,7 @@
 		{/if}
 	{:else}
 		<textarea
-			class="paper h-full min-h-[420px] w-full resize-none whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8 placeholder:text-ink/40 focus:outline-none"
+			class="paper min-h-[320px] w-full resize-none whitespace-pre-wrap break-words px-20 py-6 font-serif text-base leading-8 placeholder:text-ink/40 focus:outline-none"
 			placeholder={t.placeholder}
 			value={text}
 			oninput={(e) => onTextChange((e.currentTarget as HTMLTextAreaElement).value)}

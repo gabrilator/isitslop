@@ -107,14 +107,6 @@
 		return { label: t.gradeDense, cls: 'text-brick' };
 	}
 
-	let rhythm = $derived.by(() => {
-		const cv = result?.summary.burstiness ?? null;
-		if (cv === null) return null;
-		const pct = (Math.min(cv, 0.9) / 0.9) * 100;
-		const label = cv < 0.3 ? t.rhythmMonotone : cv < 0.45 ? t.rhythmSteady : t.rhythmVaried;
-		return { cv, pct, label, monotone: cv < 0.3 };
-	});
-
 	function intensityClass(severity: Flag['severity'], count: number): string {
 		if (count >= 3) return severity === 'red' ? 'bg-[#7a1818]' : 'bg-brick';
 		if (count === 2) return severity === 'red' ? 'bg-[#9a2828]' : 'bg-[#a55d17]';
@@ -205,11 +197,7 @@
 				<span class={`font-mono text-4xl font-semibold ${tier.cls}`}>{displayScore}</span>
 				<span class="text-xs text-ink/60">/ 100</span>
 			</div>
-			{#if result.summary.slopScore < 15}
-				<p class="mb-2 text-[11px] text-ink/60">{t.scoreHumanNote}</p>
-			{:else}
-				<div class="mb-2"></div>
-			{/if}
+			<div class="mb-2"></div>
 			<dl class="grid grid-cols-2 gap-y-1 text-xs">
 				<dt class="text-ink/60">{t.red}</dt>
 				<dd class="text-right font-mono">{result.summary.redCount}</dd>
@@ -220,24 +208,6 @@
 				<dt class="text-ink/60">{t.passive}</dt>
 				<dd class="text-right font-mono">{result.summary.passiveCount}</dd>
 			</dl>
-			{#if rhythm}
-				<div class="mt-3">
-					<div class="mb-1 flex items-baseline justify-between gap-2">
-						<span class="font-mono text-[10px] uppercase tracking-widest text-ink/40"
-							>{t.rhythm}</span
-						>
-						<span class={`text-[11px] ${rhythm.monotone ? 'text-brick' : 'text-ink/60'}`}
-							>{rhythm.label}</span
-						>
-					</div>
-					<div class="relative h-1.5 rounded-full bg-ink/10">
-						<div
-							class={`absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-paper ${rhythm.monotone ? 'bg-brick' : 'bg-ink'}`}
-							style={`left: ${rhythm.pct}%`}
-						></div>
-					</div>
-				</div>
-			{/if}
 			{#if result.summary.readingGrade !== null}
 				{@const gt = gradeTier(result.summary.readingGrade)}
 				<div class="mt-3 border-t border-ink/10 pt-3">

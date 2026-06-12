@@ -8,9 +8,9 @@ import { checkRequest, checkLLM, recordLLM } from '$lib/server/rateLimit';
 import { textSanity } from '$lib/server/guards';
 import type { AnalyzeRequestBody } from '$lib/types';
 
-const MIN_WORDS = 20;
-const MAX_WORDS = 1000;
-const MAX_BODY_BYTES = 64_000;
+const MIN_WORDS = 10;
+const MAX_WORDS = 1500;
+const MAX_BODY_BYTES = 96_000;
 
 export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 	const ip = getClientAddress();

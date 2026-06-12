@@ -5,7 +5,6 @@ export interface Strings {
 	openSourceRules: string;
 	placeholder: string;
 	words: string;
-	min: string;
 	max: string;
 	analyze: string;
 	analyzing: string;
@@ -49,7 +48,8 @@ export interface Strings {
 	tierMild: string;
 	tierHeavy: string;
 	tierSlop: string;
-	scoreHumanNote: string;
+	aboutTitle: string;
+	aboutPhilosophy: string;
 }
 
 export const EN: Strings = {
@@ -57,8 +57,7 @@ export const EN: Strings = {
 	openSourceRules: 'Open-source rules',
 	placeholder: 'Paste your text here',
 	words: 'words',
-	min: 'min 20',
-	max: 'max 1000',
+	max: 'max 1500',
 	analyze: 'Analyze',
 	analyzing: 'Analyzing',
 	settings: 'Settings',
@@ -75,8 +74,8 @@ export const EN: Strings = {
 	adverbs: 'adverb density',
 	passive: 'passive voice',
 	noFlags: 'No flags. Either it is genuinely clean or your text is too plain to judge.',
-	tooShort: 'Need at least 20 words to analyze.',
-	tooLong: 'Maximum 1000 words.',
+	tooShort: 'Need at least 10 words to analyze.',
+	tooLong: 'Maximum 1500 words.',
 	editAgain: 'Edit again',
 	close: 'Close',
 	save: 'Save',
@@ -96,13 +95,15 @@ export const EN: Strings = {
 	gradeFormal: 'Formal',
 	gradeDense: 'Dense',
 	gradeInfo:
-		'Flesch-Kincaid grade: the US school grade needed to read this with ease. Aim for 6 to 9 for a general audience. Lower is clearer, not dumber.',
+		'Flesch-Kincaid grade: the US school grade needed to read this with ease. Aim for 6 to 9 for a general audience.',
 	gradeInfoLabel: 'What is this?',
 	tierHuman: 'Reads human',
 	tierMild: 'Mild',
 	tierHeavy: 'Heavy',
 	tierSlop: 'Slop',
-	scoreHumanNote: 'Under 15 reads human. A few stray tells are normal in real writing.'
+	aboutTitle: 'Built on published research',
+	aboutPhilosophy:
+		'Every flag names the rule that fired and the research behind it. Your text is analyzed once and never stored.'
 };
 
 export const ES: Strings = {
@@ -110,8 +111,7 @@ export const ES: Strings = {
 	openSourceRules: 'Reglas abiertas',
 	placeholder: 'Pegá tu texto acá',
 	words: 'palabras',
-	min: 'min 20',
-	max: 'max 1000',
+	max: 'max 1500',
 	analyze: 'Analizar',
 	analyzing: 'Analizando',
 	settings: 'Ajustes',
@@ -128,8 +128,8 @@ export const ES: Strings = {
 	adverbs: 'densidad de adverbios',
 	passive: 'voz pasiva',
 	noFlags: 'Sin marcas. O el texto es genuinamente limpio, o es demasiado neutro para juzgar.',
-	tooShort: 'Necesito al menos 20 palabras.',
-	tooLong: 'Máximo 1000 palabras.',
+	tooShort: 'Necesito al menos 10 palabras.',
+	tooLong: 'Máximo 1500 palabras.',
 	editAgain: 'Volver a editar',
 	close: 'Cerrar',
 	save: 'Guardar',
@@ -149,13 +149,15 @@ export const ES: Strings = {
 	gradeFormal: 'Formal',
 	gradeDense: 'Denso',
 	gradeInfo:
-		'Nivel Flesch-Kincaid: el grado escolar que pide el texto para leerse fácil. Apuntá a 6 a 9 para público general. Más bajo es más claro, no más tonto.',
+		'Nivel Flesch-Kincaid: el grado escolar que pide el texto para leerse fácil. Apuntá a 6 a 9 para público general.',
 	gradeInfoLabel: '¿Qué es esto?',
 	tierHuman: 'Suena humano',
 	tierMild: 'Leve',
 	tierHeavy: 'Pesado',
 	tierSlop: 'Slop',
-	scoreHumanNote: 'Menos de 15 suena humano. Algunas marcas sueltas son normales al escribir.'
+	aboutTitle: 'Basado en investigación publicada',
+	aboutPhilosophy:
+		'Cada marca nombra la regla que la disparó y la investigación detrás. Tu texto se analiza una vez y nunca se guarda.'
 };
 
 export function strings(lang: Language): Strings {

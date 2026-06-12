@@ -13,9 +13,7 @@
 	let { t, text, loading, canAnalyze, onAnalyze }: Props = $props();
 
 	let wc = $derived(wordCount(text));
-	let counterClass = $derived(
-		wc === 0 ? 'text-ink/40' : wc < 20 || wc > 1000 ? 'text-brick' : 'text-ink/60'
-	);
+	let over = $derived(wc > 1500);
 </script>
 
 <div
@@ -23,9 +21,12 @@
 >
 	<div class="flex-1"></div>
 
-	<span class={`font-mono text-xs ${counterClass}`}>
-		{wc} {t.words} · {t.min} · {t.max}
-	</span>
+	{#if wc > 0}
+		<span class={`font-mono text-xs ${over ? 'text-brick' : 'text-ink/60'}`}>
+			{wc}
+			{t.words}{over ? ` · ${t.max}` : ''}
+		</span>
+	{/if}
 
 	<button
 		type="button"

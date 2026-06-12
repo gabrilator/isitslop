@@ -72,7 +72,7 @@ describe('guards — textSanity', () => {
 	});
 
 	it('rejects oversized text', () => {
-		expect(textSanity('word '.repeat(3000))).toMatch(/too large/i);
+		expect(textSanity('word '.repeat(4000))).toMatch(/too large/i);
 	});
 
 	it('rejects repeated-word spam', () => {
