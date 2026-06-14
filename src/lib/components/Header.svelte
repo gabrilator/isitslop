@@ -21,9 +21,9 @@
 
 	// Headline numbers, counted from the catalog (see the about modal).
 	const STAT_RULES = '30+';
-	const STAT_TELLS = '800+';
-	const STAT_PAPERS = 4;
-	const STAT_LANGS = 2;
+	const STAT_FLAGS = '800+';
+	const STAT_SOURCES = 8;
+	const STAT_LANGS = '🇬🇧 🇪🇸';
 
 	const PAPERS = [
 		{ name: 'Kobak et al., Science Advances 2025', url: 'https://arxiv.org/abs/2406.07016' },
@@ -102,7 +102,7 @@
 			</div>
 
 			<p class="text-sm leading-relaxed text-ink/80">
-				Most AI detectors are opaque, sketchy, and hungry for your data. I built
+				Most AI detectors are opaque and hungry for your data. I built
 				<span class="font-semibold">isitslop</span> to be open-source and to run on the latest research
 				into how AI writes!
 			</p>
@@ -113,15 +113,15 @@
 					<div class="mt-1 text-[10px] uppercase tracking-wide text-ink/50">rules</div>
 				</div>
 				<div>
-					<div class="font-mono text-lg font-semibold leading-none">{STAT_TELLS}</div>
-					<div class="mt-1 text-[10px] uppercase tracking-wide text-ink/50">tells</div>
+					<div class="font-mono text-lg font-semibold leading-none">{STAT_FLAGS}</div>
+					<div class="mt-1 text-[10px] uppercase tracking-wide text-ink/50">flags</div>
 				</div>
 				<div>
-					<div class="font-mono text-lg font-semibold leading-none">{STAT_PAPERS}</div>
-					<div class="mt-1 text-[10px] uppercase tracking-wide text-ink/50">studies</div>
+					<div class="font-mono text-lg font-semibold leading-none">{STAT_SOURCES}</div>
+					<div class="mt-1 text-[10px] uppercase tracking-wide text-ink/50">sources</div>
 				</div>
 				<div>
-					<div class="font-mono text-lg font-semibold leading-none">{STAT_LANGS}</div>
+					<div class="text-lg leading-none">{STAT_LANGS}</div>
 					<div class="mt-1 text-[10px] uppercase tracking-wide text-ink/50">languages</div>
 				</div>
 			</div>
@@ -141,7 +141,7 @@
 			</ul>
 
 			<div class="mt-3 rounded border border-ink/15 bg-ink/[0.03] p-2.5">
-				<p class="mb-1 font-mono text-[10px] uppercase tracking-wide text-brick">Recommended reading</p>
+				<p class="mb-1 font-mono text-[10px] uppercase tracking-wide text-brick">You can start here:</p>
 				<a
 					class="text-sm text-ink underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
 					href={WIKI.url}
