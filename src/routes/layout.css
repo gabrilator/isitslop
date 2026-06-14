@@ -31,7 +31,7 @@ body {
 .paper {
 	background-color: var(--color-paper);
 	background-image:
-		linear-gradient(to right, transparent 0, transparent 64px, var(--color-margin) 64px, var(--color-margin) 65px, transparent 65px),
+		linear-gradient(to right, transparent 0, transparent 16px, var(--color-margin) 16px, var(--color-margin) 17px, transparent 17px),
 		repeating-linear-gradient(
 			to bottom,
 			transparent 0,
@@ -39,6 +39,20 @@ body {
 			rgba(200, 194, 180, 0.55) 31px,
 			rgba(200, 194, 180, 0.55) 32px
 		);
+}
+
+@media (min-width: 640px) {
+	.paper {
+		background-image:
+			linear-gradient(to right, transparent 0, transparent 64px, var(--color-margin) 64px, var(--color-margin) 65px, transparent 65px),
+			repeating-linear-gradient(
+				to bottom,
+				transparent 0,
+				transparent 31px,
+				rgba(200, 194, 180, 0.55) 31px,
+				rgba(200, 194, 180, 0.55) 32px
+			);
+	}
 }
 
 mark.flag {

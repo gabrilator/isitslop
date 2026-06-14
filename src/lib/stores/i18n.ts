@@ -54,7 +54,7 @@ export interface Strings {
 }
 
 export const EN: Strings = {
-	tagline: "Catch it before it's too late.",
+	tagline: "Before it's too late.",
 	openSourceRules: 'Open-source rules',
 	placeholder: 'Paste your text here',
 	word: 'word',
@@ -108,7 +108,7 @@ export const EN: Strings = {
 };
 
 export const ES: Strings = {
-	tagline: 'Atrapala antes de que sea tarde.',
+	tagline: 'Antes de que sea tarde.',
 	openSourceRules: 'Reglas abiertas',
 	placeholder: 'Pegá tu texto acá',
 	word: 'palabra',
