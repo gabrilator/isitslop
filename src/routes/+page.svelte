@@ -77,7 +77,7 @@
 </script>
 
 <svelte:head>
-	<title>isitslop · detector de IA en español e inglés | AI text detector</title>
+	<title>isitslop · know before it's too late</title>
 	<meta
 		name="description"
 		content="Detector de texto generado por IA en español e inglés. Pegá tu texto y descubrí si lo escribió ChatGPT u otra inteligencia artificial. Free, open-source AI writing detector for Spanish and English — catch the tells of AI prose."
@@ -89,7 +89,7 @@
 	<meta name="robots" content="index, follow" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="isitslop" />
-	<meta property="og:title" content="isitslop · detector de IA en español e inglés" />
+	<meta property="og:title" content="isitslop · know before it's too late" />
 	<meta
 		property="og:description"
 		content="Detector de texto IA, gratis y de código abierto. Atrapá la prosa de ChatGPT en español e inglés. Free, open-source AI writing detector."
@@ -99,7 +99,7 @@
 	<meta property="og:locale:alternate" content="es_MX" />
 	<meta property="og:locale:alternate" content="en_US" />
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="isitslop · detector de IA (español e inglés)" />
+	<meta name="twitter:title" content="isitslop · know before it's too late" />
 	<meta
 		name="twitter:description"
 		content="Detector de texto generado por IA en español e inglés. Gratis y de código abierto."
