@@ -54,14 +54,14 @@ export interface Strings {
 }
 
 export const EN: Strings = {
-	tagline: "Before it's too late.",
+	tagline: "Know before it's too late.",
 	openSourceRules: 'Open-source rules',
 	placeholder: 'Paste your text here',
 	word: 'word',
 	words: 'words',
 	max: 'max 1500',
-	analyze: 'Expose it',
-	analyzing: 'Exposing',
+	analyze: 'Catch it',
+	analyzing: 'Catching',
 	settings: 'Settings',
 	provider: 'Provider',
 	language: 'Language',
@@ -108,14 +108,14 @@ export const EN: Strings = {
 };
 
 export const ES: Strings = {
-	tagline: 'Antes de que sea tarde.',
+	tagline: 'Sabelo antes de que sea tarde.',
 	openSourceRules: 'Reglas abiertas',
 	placeholder: 'Pegá tu texto acá',
 	word: 'palabra',
 	words: 'palabras',
 	max: 'max 1500',
-	analyze: 'Expónlo',
-	analyzing: 'Exponiendo',
+	analyze: 'Atrapalo',
+	analyzing: 'Atrapando',
 	settings: 'Ajustes',
 	provider: 'Proveedor',
 	language: 'Idioma',

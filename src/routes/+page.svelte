@@ -77,7 +77,7 @@
 </script>
 
 <svelte:head>
-	<title>isitslop · before it's too late</title>
+	<title>isitslop · know before it's too late</title>
 	<meta name="description" content="Detect AI-prose tells in English and Spanish text." />
 </svelte:head>
 
