@@ -102,10 +102,14 @@
 				<h2 class="font-mono text-2xl font-semibold tracking-tight text-ink">Hall of Slop</h2>
 				<p class="font-mono text-xs uppercase tracking-widest text-brick">Coming soon</p>
 				<p class="font-serif text-lg leading-relaxed text-ink">The biggest corporate slop, FRAMED!</p>
-				<a
-					class="font-serif text-base text-ink/80 underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
-					href="mailto:gabceboli@gmail.com">Email me at gabceboli@gmail.com</a
-				>
+				<p class="font-serif text-base text-ink/70">
+					Got examples?
+					<a
+						class="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
+						href="mailto:gabceboli@gmail.com?subject=Hall%20of%20Slop"
+						>Send me a screenshot at gabceboli@gmail.com</a
+					>
+				</p>
 			</div>
 		</div>
 	</div>
