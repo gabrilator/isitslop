@@ -27,26 +27,58 @@
 			class="cursor-pointer hover:text-ink hover:underline"
 			onclick={() => (hallOpen = true)}>Hall of Slop</button
 		>
-		<a class="text-ink/50 hover:text-ink" href="mailto:gabceboli@gmail.com" aria-label="Contact">
-			<svg viewBox="0 0 16 16" class="size-4" fill="none" aria-hidden="true">
-				<rect
-					x="1.5"
-					y="3"
-					width="13"
-					height="10"
-					rx="1.5"
-					stroke="currentColor"
-					stroke-width="1.3"
-				/>
-				<path
-					d="M2 4.5 L8 9 L14 4.5"
-					stroke="currentColor"
-					stroke-width="1.3"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
-		</a>
+		<div class="flex items-center gap-4">
+			<a
+				href="https://buymeacoffee.com/gabceboliw"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="flex items-center gap-1.5 font-semibold text-ochre hover:underline"
+			>
+				<svg viewBox="0 0 16 16" class="size-4" fill="none" aria-hidden="true">
+					<path
+						d="M4 7h7v2a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"
+						stroke="currentColor"
+						stroke-width="1.3"
+						stroke-linejoin="round"
+					/>
+					<path
+						d="M11 7.8h1.3a1.4 1.4 0 0 1 0 2.8H11"
+						stroke="currentColor"
+						stroke-width="1.3"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+					<path
+						d="M6 3.2c.6.6.6 1.2 0 1.8M8.5 3.2c.6.6.6 1.2 0 1.8"
+						stroke="currentColor"
+						stroke-width="1.2"
+						stroke-linecap="round"
+						opacity="0.7"
+					/>
+				</svg>
+				Donate
+			</a>
+			<a class="text-ink/50 hover:text-ink" href="mailto:gabceboli@gmail.com" aria-label="Contact">
+				<svg viewBox="0 0 16 16" class="size-4" fill="none" aria-hidden="true">
+					<rect
+						x="1.5"
+						y="3"
+						width="13"
+						height="10"
+						rx="1.5"
+						stroke="currentColor"
+						stroke-width="1.3"
+					/>
+					<path
+						d="M2 4.5 L8 9 L14 4.5"
+						stroke="currentColor"
+						stroke-width="1.3"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</a>
+		</div>
 	</div>
 </footer>
 
