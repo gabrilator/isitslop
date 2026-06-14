@@ -34,5 +34,19 @@ export const PARTICIPIAL_GERUNDS_ES: string[] = [
 	'lo que subraya',
 	'lo que demuestra',
 	'lo que evidencia',
-	'lo que refleja'
+	'lo que refleja',
+	'enfatizando',
+	'señalando',
+	'afianzando',
+	'posicionando',
+	'redefiniendo',
+	'impulsando',
+	'garantizando',
+	'allanando',
+	'fomentando',
+	'lo que pone de manifiesto',
+	'lo que refuerza',
+	'lo que consolida',
+	'lo que resalta',
+	'lo que posiciona'
 ];

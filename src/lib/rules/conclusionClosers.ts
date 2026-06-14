@@ -20,5 +20,16 @@ export const CONCLUSION_CLOSERS_ES: string[] = [
 	'para concluir',
 	'en última instancia',
 	'como se puede ver',
-	'en suma'
+	'en suma',
+	'en resumidas cuentas',
+	'en pocas palabras',
+	'para finalizar',
+	'para terminar',
+	'para resumir',
+	'en último término',
+	'a modo de conclusión',
+	'a modo de cierre',
+	'como conclusión',
+	'a manera de conclusión',
+	'recapitulando'
 ];

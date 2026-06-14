@@ -21,5 +21,16 @@ export const AI_VERBS_ES: string[] = [
 	'asegurar',
 	'utilizar',
 	'emerger',
-	'abrazar'
+	'abrazar',
+	'fomenta',
+	'fomentan',
+	'potencian',
+	'impulsar',
+	'impulsa',
+	'impulsan',
+	'optimiza',
+	'agiliza',
+	'transforma',
+	'revoluciona',
+	'cultivar'
 ];

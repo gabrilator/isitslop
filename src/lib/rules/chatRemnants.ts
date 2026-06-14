@@ -22,7 +22,23 @@ export const CHAT_OPENERS_ES: string[] = [
 	'aquí tienes',
 	'con gusto',
 	'permíteme explicarte',
-	'excelente pregunta'
+	'excelente pregunta',
+	'¡claro que sí!',
+	'¡por supuesto que sí!',
+	'¡absolutamente!',
+	'¡desde luego!',
+	'¡buena pregunta!',
+	'¡qué buena pregunta!',
+	'estaré encantado de ayudarte',
+	'estaré encantada de ayudarte',
+	'encantado de ayudarte',
+	'encantada de ayudarte',
+	'con mucho gusto',
+	'permitime explicarte',
+	'déjame explicarte',
+	'dejame explicarte',
+	'acá tienes',
+	'¡me alegra que preguntes!'
 ];
 
 export const CHAT_CLOSERS_EN: string[] = [
@@ -42,9 +58,33 @@ export const CHAT_CLOSERS_ES: string[] = [
 	'no dudes en preguntar',
 	'si tienes alguna pregunta',
 	'avísame si',
-	'házmelo saber'
+	'házmelo saber',
+	'espero que te resulte útil',
+	'espero que esta información te sea útil',
+	'espero que te haya servido',
+	'si tienes más preguntas',
+	'si tenés alguna pregunta',
+	'si tienes alguna otra pregunta',
+	'no dudes en contactarme',
+	'no dudes en preguntarme',
+	'no dudes en consultarme',
+	'estoy aquí para ayudarte',
+	'estoy para ayudarte',
+	'¿quieres que te ayude con',
+	'¿querés que te ayude con'
 ];
 
 export const SYCOPHANCY_EN: string[] = ["you're absolutely right", 'you are absolutely right'];
 
-export const SYCOPHANCY_ES: string[] = ['tienes toda la razón', 'tenés toda la razón'];
+export const SYCOPHANCY_ES: string[] = [
+	'tienes toda la razón',
+	'tenés toda la razón',
+	'tienes mucha razón',
+	'tenés mucha razón',
+	'estás en lo cierto',
+	'excelente observación',
+	'estoy completamente de acuerdo',
+	'estoy totalmente de acuerdo',
+	'tienes toda la razón del mundo',
+	'qué buena observación'
+];

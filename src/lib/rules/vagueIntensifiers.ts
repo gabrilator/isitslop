@@ -13,5 +13,16 @@ export const VAGUE_INTENSIFIERS_ES: string[] = [
 	'fundamentalmente',
 	'indudablemente',
 	'esencialmente',
-	'realmente'
+	'realmente',
+	'absolutamente',
+	'increíblemente',
+	'extremadamente',
+	'sumamente',
+	'enormemente',
+	'notablemente',
+	'considerablemente',
+	'significativamente',
+	'altamente',
+	'innegablemente',
+	'genuinamente'
 ];

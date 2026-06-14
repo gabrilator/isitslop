@@ -13,5 +13,22 @@ export const DELVE_FAMILY_ES: string[] = [
 	'profundizar',
 	'desentrañar',
 	'desgranar',
-	'explorar'
+	'explorar',
+	'ahondar',
+	'ahondamos',
+	'adentrarnos',
+	'sumergirnos',
+	'adentrémonos',
+	'sumerjámonos',
+	'profundizando',
+	'profundicemos',
+	'diseccionar',
+	'diseccionamos',
+	'escudriñar',
+	'indagar',
+	'indaguemos',
+	'adentrándonos',
+	'desmenuzar',
+	'desentrañemos',
+	'escarbar'
 ];

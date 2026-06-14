@@ -9,5 +9,10 @@ export const TRANSITION_STARTERS_ES: string[] = [
 	'Además',
 	'Asimismo',
 	'Por otra parte',
-	'Por otro lado'
+	'Por otro lado',
+	'Por consiguiente',
+	'En consecuencia',
+	'De igual manera',
+	'De igual modo',
+	'Igualmente'
 ];

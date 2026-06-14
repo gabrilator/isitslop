@@ -38,5 +38,22 @@ export const WEASEL_ES: string[] = [
 	'es considerado por muchos',
 	'es considerada por muchos',
 	'muchos consideran',
-	'analistas sugieren'
+	'analistas sugieren',
+	'los expertos coinciden',
+	'los expertos recomiendan',
+	'los expertos advierten',
+	'según los especialistas',
+	'los especialistas recomiendan',
+	'los estudios demuestran',
+	'los estudios sugieren',
+	'los académicos sostienen',
+	'los investigadores señalan',
+	'los analistas consideran',
+	'observadores destacan',
+	'los críticos han señalado',
+	'es ampliamente reconocido',
+	'es ampliamente reconocida',
+	'considerado por muchos',
+	'considerada por muchos',
+	'muchos expertos coinciden en que'
 ];

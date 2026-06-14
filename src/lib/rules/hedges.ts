@@ -30,5 +30,21 @@ export const HEDGES_ES: string[] = [
 	'vale la pena mencionar',
 	'vale la pena destacar',
 	'es fundamental comprender',
-	'hay que tener en cuenta'
+	'hay que tener en cuenta',
+	'es importante recordar',
+	'es importante resaltar',
+	'es esencial comprender',
+	'es esencial entender',
+	'es fundamental entender',
+	'cabe aclarar',
+	'cabe agregar',
+	'cabe añadir',
+	'cabe preguntarse',
+	'conviene señalar',
+	'conviene destacar',
+	'conviene recordar',
+	'es preciso señalar',
+	'vale la pena recordar',
+	'no está de más mencionar',
+	'resulta importante destacar'
 ];

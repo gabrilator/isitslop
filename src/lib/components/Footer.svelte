@@ -14,6 +14,7 @@
 			target="_blank"
 			rel="noreferrer">{t.footerBy}</a
 		>
+		<a class="hover:text-ink hover:underline" href="/hall-of-slop">Hall of Slop</a>
 		<a class="text-ink/50 hover:text-ink" href="mailto:gabceboli@gmail.com" aria-label="Contact">
 			<svg viewBox="0 0 16 16" class="size-4" fill="none" aria-hidden="true">
 				<rect

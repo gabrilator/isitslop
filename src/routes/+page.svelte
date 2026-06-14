@@ -77,8 +77,33 @@
 </script>
 
 <svelte:head>
-	<title>isitslop · know before it's too late</title>
-	<meta name="description" content="Detect AI-prose tells in English and Spanish text." />
+	<title>isitslop · detector de IA en español e inglés | AI text detector</title>
+	<meta
+		name="description"
+		content="Detector de texto generado por IA en español e inglés. Pegá tu texto y descubrí si lo escribió ChatGPT u otra inteligencia artificial. Free, open-source AI writing detector for Spanish and English — catch the tells of AI prose."
+	/>
+	<meta
+		name="keywords"
+		content="detector de IA, detector de texto IA, detector de ChatGPT, detector de inteligencia artificial, texto generado por IA, ¿lo escribió una IA?, detector de IA en español, detector de IA gratis, AI text detector, AI writing detector, ChatGPT detector, AI slop detector"
+	/>
+	<meta name="robots" content="index, follow" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="isitslop" />
+	<meta property="og:title" content="isitslop · detector de IA en español e inglés" />
+	<meta
+		property="og:description"
+		content="Detector de texto IA, gratis y de código abierto. Atrapá la prosa de ChatGPT en español e inglés. Free, open-source AI writing detector."
+	/>
+	<meta property="og:locale" content="es_ES" />
+	<meta property="og:locale:alternate" content="es_AR" />
+	<meta property="og:locale:alternate" content="es_MX" />
+	<meta property="og:locale:alternate" content="en_US" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="isitslop · detector de IA (español e inglés)" />
+	<meta
+		name="twitter:description"
+		content="Detector de texto generado por IA en español e inglés. Gratis y de código abierto."
+	/>
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">

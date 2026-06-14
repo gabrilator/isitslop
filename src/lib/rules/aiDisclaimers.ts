@@ -18,5 +18,15 @@ export const AI_DISCLAIMERS_ES: string[] = [
 	'hasta mi última actualización de conocimientos',
 	'hasta mi última actualización',
 	'mis datos de entrenamiento',
-	'fecha de corte de conocimiento'
+	'fecha de corte de conocimiento',
+	'como modelo de lenguaje de gran tamaño',
+	'como modelo de lenguaje grande',
+	'soy un modelo de lenguaje',
+	'como una ia,',
+	'como un modelo de ia',
+	'no tengo acceso a información en tiempo real',
+	'mi conocimiento llega hasta',
+	'fui entrenado con datos',
+	'fui entrenada con datos',
+	'no tengo sentimientos ni emociones'
 ];
