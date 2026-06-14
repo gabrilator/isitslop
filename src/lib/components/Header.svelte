@@ -67,6 +67,14 @@
 			>
 				{loading ? t.analyzing : t.analyze}
 			</button>
+			<a
+				href="https://buymeacoffee.com/gabceboliw"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="shrink-0 font-mono text-xs font-semibold uppercase tracking-wide text-ochre hover:underline"
+			>
+				Donate
+			</a>
 			<button
 				type="button"
 				class="flex size-5 shrink-0 items-center justify-center rounded-full border border-ink/20 font-serif text-[11px] italic text-ink/40 hover:border-ink/50 hover:text-ink"
