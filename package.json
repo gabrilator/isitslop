@@ -3,9 +3,6 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
-	"engines": {
-		"node": "^20.19 || ^22.12 || >=24"
-	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -14,7 +11,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"start": "node build/index.js"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.5.4",
