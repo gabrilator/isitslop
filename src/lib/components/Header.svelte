@@ -102,9 +102,9 @@
 			</div>
 
 			<p class="text-sm leading-relaxed text-ink/80">
-				Most AI detectors are opaque, sketchy, and hungry for your data.
-				<span class="font-semibold">isitslop</span> is open-source, runs on the latest research into how
-				AI writes, and is here to help you catch it before it's too late.
+				Most AI detectors are opaque, sketchy, and hungry for your data. I built
+				<span class="font-semibold">isitslop</span> to be open-source and to run on the latest research
+				into how AI writes!
 			</p>
 
 			<div class="my-4 grid grid-cols-4 gap-2 rounded border border-ink/10 bg-ink/[0.02] py-3 text-center">
