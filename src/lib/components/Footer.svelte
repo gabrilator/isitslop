@@ -107,7 +107,7 @@
 					<a
 						class="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
 						href="mailto:gabceboli@gmail.com?subject=Hall%20of%20Slop"
-						>Send me a screenshot at gabceboli@gmail.com</a
+						>Send me your screenshots at gabceboli@gmail.com</a
 					>
 				</p>
 			</div>
