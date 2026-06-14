@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="4 2 56 56" role="img" aria-label="isitslop parrot">
+  <title>isitslop</title>
+  <!-- head -->
+  <circle cx="32" cy="34" r="22" fill="#b23a3a" stroke="#1a1a1a" stroke-width="2" />
+  <!-- top tuft -->
+  <path d="M16 18 Q22 4 30 14" fill="#b23a3a" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- wing hint -->
+  <path d="M13 42 Q19 49 27 48" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round" opacity="0.45" />
+  <!-- cheek highlight -->
+  <ellipse cx="22" cy="40" rx="6" ry="3" fill="#fafaf7" opacity="0.18" />
+  <!-- left eye (open) -->
+  <circle cx="24" cy="30" r="5" fill="#fafaf7" stroke="#1a1a1a" stroke-width="1.6" />
+  <circle cx="25" cy="31" r="2" fill="#1a1a1a" />
+  <!-- right eye (winked) -->
+  <path d="M37 31 Q42 28 47 31" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+  <!-- raised curious brow -->
+  <path d="M19 23 Q24 20.5 29 23" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round" opacity="0.55" />
+  <!-- neutral beak -->
+  <path d="M30 42 L42 42 L34 50 Z" fill="#fafaf7" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round" />
+</svg>
