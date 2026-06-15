@@ -5,7 +5,7 @@ import { MODELS } from '$lib/llm/registry';
 
 const SYSTEM_EN = `You are an expert at spotting AI-generated prose in English.
 
-Analyse the user's text and return flags for ANY of these six patterns you find:
+Analyse the user's text and return flags for ANY of these seven patterns you find:
 
 RED (high-confidence AI tells):
 1. "rule-of-three" — three parallel items used as rhetorical scaffolding. Two shapes both count:
@@ -16,13 +16,14 @@ RED (high-confidence AI tells):
    - inline: "it's not X, it's Y", "this isn't about X, it's about Y", "we don't need X, we need Y", "X isn't the goal — Y is".
    - two-sentence: "We don't just do things. We become things.", "You don't sell AI. You sell transformation.", "She doesn't lead a team. She leads a movement."
    For the two-sentence form, excerpt must span BOTH sentences together (from the start of the negation to the end of the assertion).
-3. "fragment-question" — short rhetorical fragments framed as questions, beyond the obvious "The kicker?". Examples: "Why does this matter?", "And the result?", "The catch?", "What changed?".
+3. "fragment-question" — ANY short sentence-fragment (not a full grammatical sentence) phrased as a question and used as a hook or reveal, 1-5 words, ending in "?". Do NOT limit yourself to a fixed list of phrasings — judge by the shape. Examples: "Why does this matter?", "And the result?", "The catch?", "What changed?", "And Wednesday?", "The twist?", "So what now?", "The best part?". If a clipped question-fragment is teeing up the next line, flag it.
 4. "balanced-framing" — formulaic "while X is true, we must also consider Y" / "though X has merit, Y deserves equal weight" / "yes X, but also Y" hedging.
 5. "forced-moral" — final paragraph (or final 1-2 sentences) lands a generic life-lesson disconnected from the body. Shapes: "In the end, what matters most is…", "Ultimately, success belongs to those who…", "At the heart of it all…". Flag the WHOLE moral span.
 6. "wisdom-closure" — a sentence near the end that suddenly turns aphoristic / philosophical / universal where the body was concrete. Example: "Because in the end, every great journey begins with a single step."
+7. "triadic-cadence" — a staccato run of short, parallel sentence-fragments (each roughly 2-4 words), three of them (or two clipped beats then a payoff), used purely for rhythm — often with anaphora (the same opening word). Judge by the CLIPPED RHYTHM, never by specific words. Examples: "No pressure. No pretension. Just chess.", "We came. We saw. We shipped.", "Less talk. More code. Better results.", "Built fast. Shipped faster.", "And Wednesday? Something brand new." Set excerpt to the whole run of fragments.
 
 For each flag return:
-- ruleId: one of "rule-of-three", "not-x-but-y", "fragment-question", "balanced-framing", "forced-moral", "wisdom-closure"
+- ruleId: one of "rule-of-three", "not-x-but-y", "fragment-question", "balanced-framing", "forced-moral", "wisdom-closure", "triadic-cadence"
 - severity: always "red"
 - excerpt: the exact phrase from the user's text. Copy it verbatim — same words, same punctuation, same case. The server will locate it for you.
 - startIndex / endIndex: a best-effort guess at character offsets (the server re-anchors if they're off, so don't agonise).
@@ -33,7 +34,7 @@ Be aggressive — if a pattern is there, flag it. Up to 12 flags total. Return {
 
 const SYSTEM_ES = `Sos experto en detectar prosa generada por IA en español.
 
-Analizá el texto del usuario y devolvé flags para CUALQUIERA de estos seis patrones:
+Analizá el texto del usuario y devolvé flags para CUALQUIERA de estos siete patrones:
 
 ROJO (señales fuertes de IA):
 1. "rule-of-three" — tres items paralelos como andamio retórico. Dos formas cuentan:
@@ -44,13 +45,14 @@ ROJO (señales fuertes de IA):
    - en una oración: "no se trata de X, sino de Y", "esto no es X, es Y", "X no es la meta — Y lo es".
    - en dos oraciones: "No vendemos productos. Vendemos transformación.", "No lidera un equipo. Lidera un movimiento."
    Para la forma de dos oraciones, el excerpt debe abarcar AMBAS oraciones juntas.
-3. "fragment-question" — preguntas retóricas breves más allá de "¿La clave?". Ej: "¿Por qué importa?", "¿El resultado?", "¿Y entonces?".
+3. "fragment-question" — CUALQUIER fragmento breve (no una oración completa) planteado como pregunta y usado como gancho o revelación, de 1 a 5 palabras, terminado en "?". NO te limites a una lista fija de frases: juzgá por la forma. Ej: "¿Por qué importa?", "¿El resultado?", "¿Y entonces?", "¿Y el miércoles?", "¿El giro?", "¿Y ahora qué?", "¿Lo mejor?". Si un fragmento-pregunta arma la línea siguiente, marcalo.
 4. "balanced-framing" — fórmulas tipo "si bien X es cierto, también hay que considerar Y".
 5. "forced-moral" — última oración(es) cierra con moraleja genérica desconectada del cuerpo. Ej: "Al final, lo que importa es…", "En definitiva, el éxito pertenece a…". Marcá el span completo.
 6. "wisdom-closure" — oración cerca del final que se vuelve aforística/filosófica. Ej: "Porque, al final, todo gran viaje comienza con un solo paso."
+7. "triadic-cadence" — una secuencia entrecortada de fragmentos cortos y paralelos (cada uno de unas 2-4 palabras), tres de ellos (o dos golpes cortos y un remate), usados puro ritmo — a menudo con anáfora (misma palabra inicial). Juzgá por el RITMO entrecortado, nunca por palabras específicas. Ej: "Sin presión. Sin pretensión. Solo ajedrez.", "Llegamos. Vimos. Lanzamos.", "Menos charla. Más código.", "¿Y el miércoles? Algo nuevo." Poné excerpt = toda la serie de fragmentos.
 
 Para cada flag:
-- ruleId: uno de los seis arriba.
+- ruleId: uno de los siete arriba.
 - severity: siempre "red".
 - excerpt: la frase exacta del texto del usuario. Copiala palabra por palabra, con la misma puntuación y mayúsculas. El servidor la localiza.
 - startIndex / endIndex: una estimación; el servidor re-ancla si están mal.
@@ -76,7 +78,7 @@ export function plausibleLLMFlag(flag: Flag, language: Language): boolean {
 	const ex = flag.excerpt.replace(/[’‘]/g, "'").trim();
 	if (flag.ruleId === 'fragment-question') {
 		const words = ex.split(/\s+/u).filter(Boolean).length;
-		return ex.endsWith('?') && words <= 4;
+		return ex.endsWith('?') && words <= 5;
 	}
 	if (flag.ruleId === 'not-x-but-y') {
 		return (language === 'es' ? NOT_X_BUT_Y_CHECK_ES : NOT_X_BUT_Y_CHECK_EN).test(ex);
