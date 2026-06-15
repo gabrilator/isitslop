@@ -135,6 +135,7 @@
 				{text}
 				flags={!editing && result ? result.flags : null}
 				{loading}
+				{activeId}
 				{onTextChange}
 				onFlagClick={(id) => {
 					activeId = id;

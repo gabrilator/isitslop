@@ -44,7 +44,7 @@
 	}}
 />
 
-<header class="border-b border-ink/10 bg-paper">
+<header class="sticky top-0 z-30 border-b border-ink/10 bg-paper/80 backdrop-blur">
 	<div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
 		<div class="flex items-center gap-3">
 			<Parrot size={64} {mood} {scanning} title={t.mascotName} />
@@ -62,7 +62,7 @@
 			{/if}
 			<button
 				type="button"
-				class="flex-1 rounded bg-ink px-4 py-2 font-mono text-xs uppercase tracking-wide text-paper disabled:opacity-40 sm:flex-none sm:py-1.5"
+				class="flex-1 cursor-pointer rounded bg-ink px-4 py-2 font-mono text-xs uppercase tracking-wide text-paper disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none sm:py-1.5"
 				disabled={!canAnalyze || loading}
 				onclick={onAnalyze}
 			>

@@ -8,17 +8,46 @@
 		text: string;
 		flags: Flag[] | null;
 		loading: boolean;
+		activeId: string | null;
 		onTextChange: (text: string) => void;
 		onFlagClick: (flagId: string) => void;
 		onEditAgain: () => void;
 	}
 
-	let { t, text, flags, loading, onTextChange, onFlagClick, onEditAgain }: Props = $props();
+	let { t, text, flags, loading, activeId, onTextChange, onFlagClick, onEditAgain }: Props =
+		$props();
 
 	let renderedHtml = $derived(flags ? renderFlaggedHtml(text, flags) : '');
 	let tooltip = $state<{ flag: Flag; x: number; y: number } | null>(null);
 	let containerEl: HTMLDivElement | undefined = $state();
+	let textareaEl: HTMLTextAreaElement | undefined = $state();
 	let textHeight = $state(0);
+
+	// Clicking anywhere on the sheet focuses the textarea, as if it were clicked directly.
+	$effect(() => {
+		const el = containerEl;
+		if (!el) return;
+		const focusInput = (e: MouseEvent) => {
+			if (textareaEl && e.target !== textareaEl) textareaEl.focus();
+		};
+		el.addEventListener('click', focusInput);
+		return () => el.removeEventListener('click', focusInput);
+	});
+
+	// Keep the text in sync with the panel: highlight (and scroll to) the mark for
+	// the active flag whether it was selected here or in the flags panel on the right.
+	$effect(() => {
+		renderedHtml; // re-run after the flagged HTML (re)renders
+		const el = containerEl;
+		if (!el) return;
+		el.querySelectorAll('mark.flag.active').forEach((m) => m.classList.remove('active'));
+		if (!activeId) return;
+		const mark = el.querySelector(`mark[data-flag-id="${CSS.escape(activeId)}"]`);
+		if (mark) {
+			mark.classList.add('active');
+			(mark as HTMLElement).scrollIntoView({ block: 'center', behavior: 'smooth' });
+		}
+	});
 
 	function onClickRendered(e: MouseEvent) {
 		const target = e.target as HTMLElement | null;
@@ -110,6 +139,7 @@
 		{/if}
 	{:else}
 		<textarea
+			bind:this={textareaEl}
 			class="page-input min-h-[320px] w-full resize-none whitespace-pre-wrap break-words bg-transparent px-5 py-6 sm:px-20 font-serif text-base leading-8 placeholder:text-ink/40 focus:outline-none"
 			placeholder={t.placeholder}
 			value={text}
