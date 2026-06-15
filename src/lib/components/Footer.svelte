@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Strings } from '$lib/stores/i18n';
 	import Parrot from './Parrot.svelte';
+	import { track } from '$lib/analytics';
 	interface Props {
 		t: Strings;
 	}
@@ -25,13 +26,17 @@
 		<button
 			type="button"
 			class="cursor-pointer hover:text-ink hover:underline"
-			onclick={() => (hallOpen = true)}>Hall of Slop</button
+			onclick={() => {
+				hallOpen = true;
+				track('hall_open');
+			}}>Hall of Slop</button
 		>
 		<div class="flex items-center gap-4">
 			<a
 				href="https://buymeacoffee.com/gabceboliw"
 				target="_blank"
 				rel="noopener noreferrer"
+				onclick={() => track('donate_click')}
 				class="flex items-center gap-1.5 font-semibold text-ochre hover:underline"
 			>
 				<svg viewBox="0 0 16 16" class="size-4" fill="none" aria-hidden="true">
@@ -107,6 +112,7 @@
 					<a
 						class="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
 						href="mailto:gabceboli@gmail.com?subject=Hall%20of%20Slop"
+						onclick={() => track('slop_submit_click')}
 						>Send me your screenshots at gabceboli@gmail.com</a
 					>
 				</p>

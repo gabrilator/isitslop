@@ -6,6 +6,7 @@
 	import { strings } from '$lib/stores/i18n';
 	import type { ScanResult } from '$lib/types';
 	import { wordCount } from '$lib/lang';
+	import { track } from '$lib/analytics';
 
 	const t = strings('en');
 
@@ -46,12 +47,16 @@
 			result = (await res.json()) as ScanResult;
 			editing = false;
 			mobilePanelOpen = true;
-			(window as { umami?: { track: (event: string, data?: object) => void } }).umami?.track(
-				'analyze',
-				{ language: result.language, score: result.summary.slopScore }
-			);
+			track('analyze', {
+				language: result.language,
+				score: result.summary.slopScore,
+				words: wc,
+				red: result.summary.redCount,
+				yellow: result.summary.yellowCount
+			});
 		} catch (e) {
 			error = (e as Error).message;
+			track('analyze_error');
 		} finally {
 			loading = false;
 		}
@@ -64,6 +69,7 @@
 		error = null;
 		activeId = null;
 		mobilePanelOpen = false;
+		track('edit_again');
 	}
 
 	function onTextChange(v: string) {
@@ -135,6 +141,7 @@
 				onFlagClick={(id) => {
 					activeId = id;
 					mobilePanelOpen = true;
+					track('flag_click');
 				}}
 				onEditAgain={editAgain}
 			/>

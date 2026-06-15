@@ -2,6 +2,7 @@
 	import Parrot from './Parrot.svelte';
 	import type { Strings } from '$lib/stores/i18n';
 	import { wordCount } from '$lib/lang';
+	import { track } from '$lib/analytics';
 
 	interface Props {
 		t: Strings;
@@ -71,7 +72,10 @@
 				type="button"
 				class="flex size-5 shrink-0 items-center justify-center rounded-full border border-ink/20 font-serif text-[11px] italic text-ink/40 hover:border-ink/50 hover:text-ink"
 				aria-label={t.aboutTitle}
-				onclick={() => (aboutOpen = true)}
+				onclick={() => {
+					aboutOpen = true;
+					track('about_open');
+				}}
 			>
 				i
 			</button>
@@ -134,7 +138,8 @@
 							class="text-sm text-ink underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
 							href={s.url}
 							target="_blank"
-							rel="noreferrer">{s.name}</a
+							rel="noreferrer"
+							onclick={() => track('source_click', { source: s.name })}>{s.name}</a
 						>
 					</li>
 				{/each}
@@ -146,7 +151,8 @@
 					class="text-sm text-ink underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
 					href={WIKI.url}
 					target="_blank"
-					rel="noreferrer">{WIKI.name}</a
+					rel="noreferrer"
+					onclick={() => track('source_click', { source: 'wikipedia' })}>{WIKI.name}</a
 				>
 			</div>
 		</div>
