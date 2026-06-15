@@ -86,7 +86,7 @@
 	<title>isitslop · know before it's too late</title>
 	<meta
 		name="description"
-		content="Detector de texto generado por IA en español e inglés. Pegá tu texto y descubrí si lo escribió ChatGPT u otra inteligencia artificial. Free, open-source AI writing detector for Spanish and English — catch the tells of AI prose."
+		content="Free, open-source AI writing detector for English and Spanish. Paste your text and see if it reads like AI."
 	/>
 	<meta
 		name="keywords"
@@ -98,17 +98,15 @@
 	<meta property="og:title" content="isitslop · know before it's too late" />
 	<meta
 		property="og:description"
-		content="Detector de texto IA, gratis y de código abierto. Atrapá la prosa de ChatGPT en español e inglés. Free, open-source AI writing detector."
+		content="Free, open-source AI writing detector for English and Spanish."
 	/>
-	<meta property="og:locale" content="es_ES" />
-	<meta property="og:locale:alternate" content="es_AR" />
-	<meta property="og:locale:alternate" content="es_MX" />
-	<meta property="og:locale:alternate" content="en_US" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:locale:alternate" content="es_ES" />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="isitslop · know before it's too late" />
 	<meta
 		name="twitter:description"
-		content="Detector de texto generado por IA en español e inglés. Gratis y de código abierto."
+		content="Free, open-source AI writing detector for English and Spanish."
 	/>
 </svelte:head>
 
