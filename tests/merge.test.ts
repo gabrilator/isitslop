@@ -44,11 +44,10 @@ describe('computeSlopScore', () => {
 		expect(score).toBeLessThanOrEqual(2);
 	});
 
-	it('short text + 1 em-dash → ~6 (lone sign still forgiven even without length dilution)', () => {
+	it('short text + 1 em-dash → 0 (lone sign scores under 10, floored as noise)', () => {
 		const flags = [makeFlag('em-dash', 'red', 0)];
 		const score = computeSlopScore({ flags, wordCount: 50 });
-		expect(score).toBeGreaterThanOrEqual(4);
-		expect(score).toBeLessThanOrEqual(8);
+		expect(score).toBe(0);
 	});
 
 	it('short text + 3 distinct rules → ≥30 (combination flagged)', () => {
@@ -149,9 +148,16 @@ describe('computeSlopScore — forgiveness floor', () => {
 		expect(score).toBe(0);
 	});
 
-	it('short text + one lone sign is NOT forgiven (under the word threshold)', () => {
-		const score = computeSlopScore({ flags: [makeFlag('em-dash', 'red', 0)], wordCount: 50 });
-		expect(score).toBeGreaterThan(0);
+	it('short text + two red signs is NOT forgiven (clears the noise floor)', () => {
+		const flags = [makeFlag('em-dash', 'red', 0), makeFlag('em-dash', 'red', 1)];
+		const score = computeSlopScore({ flags, wordCount: 50 });
+		expect(score).toBeGreaterThanOrEqual(10);
+	});
+
+	it('noise floor: any final score below 10 is rounded down to 0', () => {
+		// 3 jargon hits in a 600-word essay raw-score ~2 — below 10, so floored.
+		const flags = Array.from({ length: 3 }, (_, i) => makeFlag('jargon', 'yellow', i));
+		expect(computeSlopScore({ flags, wordCount: 600 })).toBe(0);
 	});
 
 	it('hard-red evidence is never forgiven: 600w + 1 artifact-residue → ≥ 25', () => {
@@ -207,9 +213,9 @@ describe('computeSlopScore — concentration window', () => {
 		expect(computeSlopScore({ flags, wordCount: 600 })).toBe(0);
 	});
 
-	it('weak word-list rules count globally from 3 hits', () => {
-		const flags = Array.from({ length: 3 }, (_, i) => makeFlag('jargon', 'yellow', i));
-		expect(computeSlopScore({ flags, wordCount: 600 })).toBeGreaterThanOrEqual(1);
+	it('weak word-list rules accumulate to a real score once well past the 3-hit gate', () => {
+		const flags = Array.from({ length: 7 }, (_, i) => makeFlag('jargon', 'yellow', i));
+		expect(computeSlopScore({ flags, wordCount: 600 })).toBeGreaterThanOrEqual(10);
 	});
 
 	it('gated weak hits still score when packed into one window', () => {
@@ -218,14 +224,15 @@ describe('computeSlopScore — concentration window', () => {
 		const packed = [
 			makeFlagAt('jargon', 'yellow', s[0]),
 			makeFlagAt('jargon', 'yellow', s[10]),
-			makeFlagAt('hedge', 'yellow', s[20])
+			makeFlagAt('hedge', 'yellow', s[20]),
+			makeFlagAt('hedge', 'yellow', s[30])
 		];
 		const spread = [
 			makeFlagAt('jargon', 'yellow', s[0]),
 			makeFlagAt('jargon', 'yellow', s[450]),
 			makeFlagAt('hedge', 'yellow', s[900])
 		];
-		expect(computeSlopScore({ flags: packed, wordCount: 1000, text })).toBeGreaterThanOrEqual(5);
+		expect(computeSlopScore({ flags: packed, wordCount: 1000, text })).toBeGreaterThanOrEqual(10);
 		expect(computeSlopScore({ flags: spread, wordCount: 1000, text })).toBe(0);
 	});
 

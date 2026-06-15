@@ -212,5 +212,8 @@ export function computeSlopScore(params: {
 
 	let score = Math.round(Math.max(global, concentration));
 	if (hasHardRed) score = Math.max(score, HARD_RED_MIN_SCORE);
-	return Math.min(100, score);
+	score = Math.min(100, score);
+	// Anything below 10 is noise — round it down to 0.
+	if (score < 10) score = 0;
+	return score;
 }
