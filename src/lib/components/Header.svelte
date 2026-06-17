@@ -107,7 +107,7 @@
 
 			<p class="text-sm leading-relaxed text-ink/80">
 				Most AI detectors are opaque and hungry for your data. I built
-				<span class="font-semibold">isitslop</span> to be open-source and to run on the latest research
+				<span class="font-semibold">isitslop</span> to be transparent and to run on the latest research
 				into how AI writes!
 			</p>
 
