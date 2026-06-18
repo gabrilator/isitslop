@@ -12,15 +12,15 @@ RED (high-confidence AI tells):
    - comma form: "fast, scalable, robust — and built for the future." / "we eat, we sleep, we work — but we never really live."
    - labeled form: "Vision: a north star. Alignment: row together. Impact: ship work." — three single-word headings each followed by content, used as a parroted three-point structure.
    For the LABELED form, set excerpt to JUST the first heading word (e.g. "Vision") — a 5–12 character span. Do NOT span the whole block (a separate rule already marks each "Label:" individually).
-2. "not-x-but-y" — contrastive framings that negate one thing then assert its replacement. Shapes:
-   - inline: "it's not X, it's Y", "this isn't about X, it's about Y", "we don't need X, we need Y", "X isn't the goal — Y is".
-   - two-sentence: "We don't just do things. We become things.", "You don't sell AI. You sell transformation.", "She doesn't lead a team. She leads a movement."
-   For the two-sentence form, excerpt must span BOTH sentences together (from the start of the negation to the end of the assertion).
+2. "not-x-but-y" — contrastive framings that negate one thing then assert its replacement, in ANY person (it / this / we / you / I). Shapes:
+   - inline: "it's not X, it's Y", "this isn't about X, it's about Y", "we don't need X, we need Y", "you don't need X, you need Y", "X isn't the goal — Y is".
+   - two-sentence: "We don't just do things. We become things.", "You don't sell AI. You sell transformation.", "You don't need a perfect plan. You need to start.", "I'm not writing this to brag. I'm writing it because…", "I'm not here to sell. I'm here to help."
+   For the two-sentence form, excerpt must span BOTH sentences together (from the start of the negation to the end of the assertion). The first-person humblebrag disclaimer ("I'm not X-ing to brag, I'm X-ing because…") absolutely counts — flag it.
 3. "fragment-question" — ANY short sentence-fragment (not a full grammatical sentence) phrased as a question and used as a hook or reveal, 1-5 words, ending in "?". Do NOT limit yourself to a fixed list of phrasings — judge by the shape. Examples: "Why does this matter?", "And the result?", "The catch?", "What changed?", "And Wednesday?", "The twist?", "So what now?", "The best part?". If a clipped question-fragment is teeing up the next line, flag it.
 4. "balanced-framing" — formulaic "while X is true, we must also consider Y" / "though X has merit, Y deserves equal weight" / "yes X, but also Y" hedging.
 5. "forced-moral" — final paragraph (or final 1-2 sentences) lands a generic life-lesson disconnected from the body. Shapes: "In the end, what matters most is…", "Ultimately, success belongs to those who…", "At the heart of it all…". Flag the WHOLE moral span.
 6. "wisdom-closure" — a sentence near the end that suddenly turns aphoristic / philosophical / universal where the body was concrete. Example: "Because in the end, every great journey begins with a single step."
-7. "triadic-cadence" — a staccato run of short, parallel sentence-fragments (each roughly 2-4 words), three of them (or two clipped beats then a payoff), used purely for rhythm — often with anaphora (the same opening word). Judge by the CLIPPED RHYTHM, never by specific words. Examples: "No pressure. No pretension. Just chess.", "We came. We saw. We shipped.", "Less talk. More code. Better results.", "Built fast. Shipped faster.", "And Wednesday? Something brand new." Set excerpt to the whole run of fragments.
+7. "triadic-cadence" — three parallel beats in a row, used as rhythm, often with anaphora (the same opening word). The beats can be tiny fragments OR uneven full sentences — judge by the THREE-BEAT PARALLELISM, never by length or specific words. Examples: "No pressure. No pretension. Just chess.", "We came. We saw. We shipped.", "Everyone told me I was crazy. My mom cried. My friends went quiet when I brought it up.", "Every win felt like mine. Every client I landed, every problem I solved.", "Built fast. Shipped faster." Set excerpt to the whole run of three beats.
 
 For each flag return:
 - ruleId: one of "rule-of-three", "not-x-but-y", "fragment-question", "balanced-framing", "forced-moral", "wisdom-closure", "triadic-cadence"
@@ -41,15 +41,15 @@ ROJO (señales fuertes de IA):
    - forma con comas: "rápido, escalable, robusto — y listo para el futuro."
    - forma etiquetada: "Visión: un norte. Alineación: remar juntos. Impacto: entregar valor." — tres encabezados de una palabra seguidos de contenido.
    Para la forma ETIQUETADA, poné excerpt = SOLO la primera palabra-encabezado (ej. "Visión"), de 5 a 12 caracteres. NO marqués todo el bloque (otra regla marca cada "Etiqueta:" por separado).
-2. "not-x-but-y" — encuadres contrastivos que niegan algo y afirman su reemplazo. Formas:
-   - en una oración: "no se trata de X, sino de Y", "esto no es X, es Y", "X no es la meta — Y lo es".
-   - en dos oraciones: "No vendemos productos. Vendemos transformación.", "No lidera un equipo. Lidera un movimiento."
-   Para la forma de dos oraciones, el excerpt debe abarcar AMBAS oraciones juntas.
+2. "not-x-but-y" — encuadres contrastivos que niegan algo y afirman su reemplazo, en CUALQUIER persona (es / esto / nosotros / vos / yo). Formas:
+   - en una oración: "no se trata de X, sino de Y", "esto no es X, es Y", "no necesitás X, necesitás Y", "X no es la meta — Y lo es".
+   - en dos oraciones: "No vendemos productos. Vendemos transformación.", "No necesitás un plan perfecto. Necesitás empezar.", "No escribo esto para presumir. Lo escribo porque…"
+   Para la forma de dos oraciones, el excerpt debe abarcar AMBAS oraciones juntas. El descargo en primera persona ("No escribo esto para presumir, lo escribo porque…") cuenta — marcalo.
 3. "fragment-question" — CUALQUIER fragmento breve (no una oración completa) planteado como pregunta y usado como gancho o revelación, de 1 a 5 palabras, terminado en "?". NO te limites a una lista fija de frases: juzgá por la forma. Ej: "¿Por qué importa?", "¿El resultado?", "¿Y entonces?", "¿Y el miércoles?", "¿El giro?", "¿Y ahora qué?", "¿Lo mejor?". Si un fragmento-pregunta arma la línea siguiente, marcalo.
 4. "balanced-framing" — fórmulas tipo "si bien X es cierto, también hay que considerar Y".
 5. "forced-moral" — última oración(es) cierra con moraleja genérica desconectada del cuerpo. Ej: "Al final, lo que importa es…", "En definitiva, el éxito pertenece a…". Marcá el span completo.
 6. "wisdom-closure" — oración cerca del final que se vuelve aforística/filosófica. Ej: "Porque, al final, todo gran viaje comienza con un solo paso."
-7. "triadic-cadence" — una secuencia entrecortada de fragmentos cortos y paralelos (cada uno de unas 2-4 palabras), tres de ellos (o dos golpes cortos y un remate), usados puro ritmo — a menudo con anáfora (misma palabra inicial). Juzgá por el RITMO entrecortado, nunca por palabras específicas. Ej: "Sin presión. Sin pretensión. Solo ajedrez.", "Llegamos. Vimos. Lanzamos.", "Menos charla. Más código.", "¿Y el miércoles? Algo nuevo." Poné excerpt = toda la serie de fragmentos.
+7. "triadic-cadence" — tres golpes paralelos seguidos, usados como ritmo, a menudo con anáfora (misma palabra inicial). Los golpes pueden ser fragmentos mínimos O oraciones desparejas más largas — juzgá por el PARALELISMO DE TRES GOLPES, nunca por el largo ni palabras específicas. Ej: "Sin presión. Sin pretensión. Solo ajedrez.", "Llegamos. Vimos. Lanzamos.", "Todos me dijeron que estaba loco. Mi mamá lloró. Mis amigos se callaban cuando lo mencionaba.", "Cada victoria fue mía. Cada cliente que conseguí, cada problema que resolví." Poné excerpt = toda la serie de tres golpes.
 
 Para cada flag:
 - ruleId: uno de los siete arriba.
@@ -70,9 +70,9 @@ function escapeRx(s: string): string {
 // cheap structural check before they count. Full-sentence rhetorical
 // questions are human; "not always X" hedges are not negate-then-replace.
 const NOT_X_BUT_Y_CHECK_EN =
-	/(?:\bnot\b|n't\b)[^.!?\n]{0,140}[.!?,;:]['"”’)\]]?\s*(?:it'?s\b|it\s+is\b|it\s+was\b|it\s+feels\b|that'?s\b|they'?re\b|they\s+\w+|we\s|you\s|instead\b|rather\b)/i;
+	/(?:\bnot\b|n't\b)[^.!?\n]{0,140}[.!?,;:]['"”’)\]]?\s*(?:it'?s\b|it\s+is\b|it\s+was\b|it\s+feels\b|that'?s\b|they'?re\b|they\s+\w+|we\s|you\s|i'?m\b|i\s|instead\b|rather\b)/i;
 const NOT_X_BUT_Y_CHECK_ES =
-	/\bno\b[^.!?\n]{0,140}[.!?,;:]['"”’)\]]?\s*(?:es\b|son\b|se\s+trata|sino\b|más\s+bien|en\s+realidad)/i;
+	/\bno\b[^.!?\n]{0,140}[.!?,;:]['"”’)\]]?\s*(?:es\b|son\b|se\s+trata|sino\b|más\s+bien|en\s+realidad|lo\s|yo\b|necesit)/i;
 
 export function plausibleLLMFlag(flag: Flag, language: Language): boolean {
 	const ex = flag.excerpt.replace(/[’‘]/g, "'").trim();

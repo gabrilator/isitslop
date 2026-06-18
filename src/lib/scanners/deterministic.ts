@@ -337,12 +337,13 @@ function notXButY(text: string, language: Language): Flag[] {
 			: /\b(?:isn't|aren't|wasn't|weren't|don't|doesn't|won't|can't|cannot|is\s+not|are\s+not)\b[^.!?]{3,150}[.!?]['"”’)\]]?\s+(?:It's|It\s+is|That's|That\s+is|We\s+|You\s+|They\s+|Instead,?\s|Rather,?\s)/gu;
 	let m: RegExpExecArray | null;
 	while ((m = re.exec(text)) !== null) {
+		const excerpt = m[0].trimEnd();
 		flags.push({
 			ruleId: 'not-x-but-y',
 			severity: 'red',
 			startIndex: m.index,
-			endIndex: m.index + m[0].length,
-			excerpt: m[0].trimEnd(),
+			endIndex: m.index + excerpt.length,
+			excerpt,
 			explanation: 'Two-sentence "not X. Y" framing, a classic AI rhetorical move.'
 		});
 	}

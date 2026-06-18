@@ -43,6 +43,16 @@ export function mergeFlags(text: string, ...groups: Flag[][]): Flag[] {
 				drop = true;
 				break;
 			}
+			// same rule already covers this span (e.g. LLM + deterministic both
+			// caught one "not X. Y." — keep the wider one, drop the nested one)
+			if (
+				existing.ruleId === flag.ruleId &&
+				existing.startIndex <= flag.startIndex &&
+				existing.endIndex >= flag.endIndex
+			) {
+				drop = true;
+				break;
+			}
 			if (existing.severity === 'red' && flag.severity === 'yellow') {
 				drop = true;
 				break;
