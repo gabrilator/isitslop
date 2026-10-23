@@ -5,6 +5,7 @@ import { runScanners } from '$lib/scanners';
 import { geminiAdapter } from '$lib/llm/gemini';
 import { resolveLanguage, wordCount, foreignLanguageNotice } from '$lib/lang';
 import { checkRequest, checkLLM, recordLLM } from '$lib/server/rateLimit';
+import { clientIp } from '$lib/server/clientIp';
 import { textSanity } from '$lib/server/guards';
 import type { AnalyzeRequestBody } from '$lib/types';
 
@@ -13,7 +14,7 @@ const MAX_WORDS = 1500;
 const MAX_BODY_BYTES = 96_000;
 
 export const POST: RequestHandler = async ({ request, getClientAddress }) => {
-	const ip = getClientAddress();
+	const ip = clientIp(getClientAddress(), request.headers);
 	const gate = checkRequest(ip);
 	if (!gate.ok) {
 		return json(

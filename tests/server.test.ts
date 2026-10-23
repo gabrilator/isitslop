@@ -6,6 +6,7 @@ import {
 	resetRateLimits
 } from '../src/lib/server/rateLimit';
 import { textSanity } from '../src/lib/server/guards';
+import { clientIp, isCloudflare } from '../src/lib/server/clientIp';
 
 const T0 = 1_700_000_000_000;
 
@@ -90,5 +91,36 @@ describe('guards — textSanity', () => {
 		expect(textSanity('{}[]();;== 0x1f 0x2e ::: ##### $$$ %%% ((( ))) '.repeat(10))).toMatch(
 			/natural prose/i
 		);
+	});
+});
+
+describe('clientIp — visitor address behind Cloudflare', () => {
+	const cf = (value: string) => new Headers({ 'cf-connecting-ip': value });
+
+	it('uses CF-Connecting-IP when the peer is a Cloudflare edge', () => {
+		expect(clientIp('172.64.80.1', cf('203.0.113.7'))).toBe('203.0.113.7');
+		expect(clientIp('2606:4700:10::6816:1', cf('2001:db8::5'))).toBe('2001:db8::5');
+	});
+
+	it('keeps visitors apart when they share an edge', () => {
+		expect(clientIp('172.64.80.1', cf('203.0.113.7'))).not.toBe(
+			clientIp('172.64.80.1', cf('198.51.100.9'))
+		);
+	});
+
+	it('ignores the header from a peer that is not Cloudflare', () => {
+		expect(clientIp('192.0.2.50', cf('10.0.0.1'))).toBe('192.0.2.50');
+	});
+
+	it('falls back to the peer when the header is missing or not an address', () => {
+		expect(clientIp('172.64.80.1', new Headers())).toBe('172.64.80.1');
+		expect(clientIp('172.64.80.1', cf('not-an-ip'))).toBe('172.64.80.1');
+	});
+
+	it('recognises edge ranges, including IPv4-mapped addresses', () => {
+		expect(isCloudflare('104.16.0.1')).toBe(true);
+		expect(isCloudflare('::ffff:162.158.1.2')).toBe(true);
+		expect(isCloudflare('168.119.155.158')).toBe(false);
+		expect(isCloudflare('')).toBe(false);
 	});
 });
