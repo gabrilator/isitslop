@@ -43,6 +43,30 @@ npm test               # one of these tests scans this README for slop
 
 The rule catalog always runs, with or without a key. The endpoint rate-limits by IP and rejects junk before spending tokens ([src/lib/server/](src/lib/server/)).
 
+## Check drafts from Claude Code
+
+The site also serves an MCP endpoint, private to the Google accounts you allow. Add it to Claude Code with one line:
+
+```bash
+claude mcp add --transport http isitslop https://<your-domain>/mcp
+```
+
+Then type `/mcp` in Claude Code, pick isitslop and sign in with Google. An address outside `MCP_ALLOWED_EMAILS` gets turned away. A sign-in lasts 90 days.
+
+The one tool, `check_text`, takes `text` and an optional `deterministic_only` that skips the Gemini judge. It runs the same pipeline as the page and returns the score, the tier, the word count, the flags (rule, severity, excerpt, explanation, suggestion) and the writing tips. It reads English only and refuses anything else, French included. Each connection gets 60 requests a minute and 30 judge passes an hour, 200 a day.
+
+In production, set these and redeploy. Until the first four are there, `/mcp` answers 404 and the rest of the site works as before.
+
+| Variable | Value |
+| --- | --- |
+| `MCP_ALLOWED_EMAILS` | the Google addresses allowed in, comma-separated |
+| `MCP_SECRET` | 32 random characters or more, from `openssl rand -base64 32`. Changing it signs every client out. |
+| `GOOGLE_OAUTH_CLIENT_ID` | a Google OAuth client of type Web application, with `https://<your-domain>/oauth/google/callback` as its redirect URI |
+| `GOOGLE_OAUTH_CLIENT_SECRET` | that client's secret |
+| `ORIGIN` | `https://<your-domain>` |
+
+After `npm run build`, `npm run smoke:mcp` runs the whole sign-in and a check against the build, with Google faked.
+
 ## Stack
 
 SvelteKit 2, Svelte 5, TypeScript, Tailwind 4, Gemini. MIT license.

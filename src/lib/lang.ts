@@ -16,6 +16,8 @@ export function wordCount(text: string): number {
 const SUPPORTED_CODES = new Set(['eng', 'spa', 'und']);
 
 const LANG_NAMES: Record<string, string> = {
+	eng: 'English',
+	spa: 'Spanish',
 	fra: 'French',
 	ita: 'Italian',
 	deu: 'German',
@@ -51,12 +53,20 @@ const LANG_NAMES: Record<string, string> = {
 	hrv: 'Croatian'
 };
 
+/** franc's ISO 639-3 code for the MAIN language of the text, 'und' when it can't tell. */
+export function mainLanguage(text: string): string {
+	return franc(text, { minLength: 10 });
+}
+
+export function languageName(code: string): string {
+	return LANG_NAMES[code] ?? code;
+}
+
 /** Warns when the MAIN language is neither English nor Spanish. */
 export function foreignLanguageNotice(text: string): string | null {
-	const code = franc(text, { minLength: 10 });
+	const code = mainLanguage(text);
 	if (SUPPORTED_CODES.has(code)) return null;
-	const name = LANG_NAMES[code] ?? code;
-	return `Main language looks like ${name}. The rules cover English and Spanish only, so results are unreliable.`;
+	return `Main language looks like ${languageName(code)}. The rules cover English and Spanish only, so results are unreliable.`;
 }
 
 /** Flesch-Kincaid grade level. English only for now; null otherwise. */

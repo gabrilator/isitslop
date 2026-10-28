@@ -12,6 +12,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
+		"smoke:mcp": "node scripts/smoke-mcp.mjs",
 		"start": "node build/index.js"
 	},
 	"devDependencies": {
@@ -30,6 +31,7 @@
 		"@fontsource/ibm-plex-mono": "^5.2.7",
 		"@fontsource/source-serif-4": "^5.2.9",
 		"@google/genai": "^2.4.0",
+		"@modelcontextprotocol/sdk": "^1.32.2",
 		"compromise": "^14.15.0",
 		"franc-min": "^6.2.0",
 		"text-readability": "^1.1.1",

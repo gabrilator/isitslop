@@ -227,3 +227,13 @@ export function computeSlopScore(params: {
 	if (score < 10) score = 0;
 	return score;
 }
+
+export type SlopTier = 'human' | 'mild' | 'heavy' | 'slop';
+
+/** The band a score falls in: under 15 reads human, then mild, heavy and slop. */
+export function slopTier(score: number): SlopTier {
+	if (score < 15) return 'human';
+	if (score < 40) return 'mild';
+	if (score < 70) return 'heavy';
+	return 'slop';
+}
