@@ -1,16 +1,12 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
-import { runScanners } from '$lib/scanners';
-import { geminiAdapter } from '$lib/llm/gemini';
-import { resolveLanguage, wordCount, foreignLanguageNotice } from '$lib/lang';
-import { checkRequest, checkLLM, recordLLM } from '$lib/server/rateLimit';
+import { resolveLanguage, foreignLanguageNotice } from '$lib/lang';
+import { checkRequest, siteLimiter } from '$lib/server/rateLimit';
 import { clientIp } from '$lib/server/clientIp';
-import { textSanity } from '$lib/server/guards';
+import { analyze, rejectText } from '$lib/server/analyze';
 import type { AnalyzeRequestBody } from '$lib/types';
 
-const MIN_WORDS = 10;
-const MAX_WORDS = 1500;
 const MAX_BODY_BYTES = 96_000;
 
 export const POST: RequestHandler = async ({ request, getClientAddress }) => {
@@ -42,52 +38,21 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 		throw error(400, `Unsupported language: ${langChoice}`);
 	}
 
-	const words = wordCount(text);
-	if (words < MIN_WORDS) throw error(400, `Text too short (need ≥ ${MIN_WORDS} words)`);
-	if (words > MAX_WORDS) throw error(400, `Text too long (max ${MAX_WORDS} words)`);
+	const rejected = rejectText(text);
+	if (rejected) throw error(400, rejected);
 
-	const sanity = textSanity(text);
-	if (sanity) throw error(400, sanity);
-
-	const apiKey = env.GOOGLE_GENAI_API_KEY || '';
-	let useLLM = Boolean(apiKey);
-
-	// Every LLM pass runs on the server key, so every one is metered per IP.
-	let llmLimited = false;
-	if (useLLM) {
-		if (checkLLM(ip)) {
-			recordLLM(ip);
-		} else {
-			useLLM = false;
-			llmLimited = true;
-		}
-	}
-
-	const language = resolveLanguage(text, langChoice);
-
-	const result = await runScanners({
+	const { result } = await analyze({
 		text,
-		language,
-		adapter: geminiAdapter,
-		apiKey,
-		useLLM
+		language: resolveLanguage(text, langChoice),
+		apiKey: env.GOOGLE_GENAI_API_KEY || '',
+		judge: true,
+		limiter: siteLimiter,
+		key: ip
 	});
 
 	const notice = foreignLanguageNotice(text);
 	if (notice) {
 		result.warnings = [notice, ...(result.warnings ?? [])];
-	}
-
-	if (llmLimited) {
-		result.warnings = [
-			...(result.warnings ?? []),
-			'LLM rate limit reached, deterministic rules only for now. Try again in a bit.'
-		];
-	} else if (!useLLM) {
-		result.warnings = [
-			...(result.warnings ?? []),
-			'No API key provided, LLM scanners skipped (deterministic only).'
-		];
 	}
 
 	return json(result);

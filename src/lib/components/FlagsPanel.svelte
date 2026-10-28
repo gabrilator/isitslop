@@ -3,7 +3,7 @@
 	import type { Flag, ScanResult } from '$lib/types';
 	import type { Strings } from '$lib/stores/i18n';
 	import { flagId } from '$lib/render';
-	import { ruleContribution, isWritingTip } from '$lib/scanners/merge';
+	import { ruleContribution, isWritingTip, slopTier } from '$lib/scanners/merge';
 
 	interface Props {
 		t: Strings;
@@ -53,13 +53,14 @@
 		});
 	});
 
-	let tier = $derived.by(() => {
-		const score = result?.summary.slopScore ?? 0;
-		if (score < 15) return { label: t.tierHuman, cls: 'text-[#3d7a4a]' };
-		if (score < 40) return { label: t.tierMild, cls: 'text-ochre' };
-		if (score < 70) return { label: t.tierHeavy, cls: 'text-brick' };
-		return { label: t.tierSlop, cls: 'text-[#7a1818]' };
-	});
+	let tier = $derived(
+		{
+			human: { label: t.tierHuman, cls: 'text-[#3d7a4a]' },
+			mild: { label: t.tierMild, cls: 'text-ochre' },
+			heavy: { label: t.tierHeavy, cls: 'text-brick' },
+			slop: { label: t.tierSlop, cls: 'text-[#7a1818]' }
+		}[slopTier(result?.summary.slopScore ?? 0)]
+	);
 
 	interface Group {
 		ruleId: string;
